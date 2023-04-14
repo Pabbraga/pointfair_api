@@ -4,7 +4,7 @@ const schema = "";
 
 class Endereco extends sequelize.Model {}
     Endereco.init({
-        cdEndereco:{
+        cdEndereco: {
             type:sequelize.INTEGER,
             autoIncrement: true,
             allowNull: false,
