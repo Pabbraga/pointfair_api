@@ -2,28 +2,24 @@ const sequelize = require('sequelize');
 const database = require('../src/db');
 const schema = "";
 
-class Usuario extends sequelize.Model {}
-    Usuario.init({
-        cdUsuario:{
+class Endereco extends sequelize.Model {}
+    Endereco.init({
+        cdEndereco: {
             type:sequelize.INTEGER,
             autoIncrement: true,
             allowNull: false,
             primaryKey: true
         },
-        nmUsuarioCompleto: {
-            type: sequelize.STRING(100),
+        nmCidade: {
+            type: sequelize.STRING(50),
             allowNull: false
         },
-        nmUsuario:{
-            type:sequelize.STRING(25),
-            allowNull:false
-        },
-        email:{
-            type:sequelize.STRING(100),
+        nmBairro: {
+            type: sequelize.STRING(50),
             allowNull: false
         },
-        senha:{
-            type:sequelize.STRING(50),
+        nmRua: {
+            type: sequelize.STRING(50),
             allowNull: false
         },
         data_registro:{
@@ -33,8 +29,8 @@ class Usuario extends sequelize.Model {}
         },
     },
     {
-        sequelize:database,modelName:'usuario',schema
+        sequelize:database,modelName:'endereco',schema 
     }
     )
 
-    module.exports = Usuario;
+    module.exports = Endereco;

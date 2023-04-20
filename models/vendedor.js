@@ -2,21 +2,25 @@ const sequelize = require('sequelize');
 const database = require('../src/db');
 const schema = "";
 
-class Usuario extends sequelize.Model {}
-    Usuario.init({
-        cdUsuario:{
+class Vendedor extends sequelize.Model {}
+    Vendedor.init({
+        cdVendedor: {
             type:sequelize.INTEGER,
             autoIncrement: true,
             allowNull: false,
             primaryKey: true
         },
-        nmUsuarioCompleto: {
+        nmVendedorCompleto: {
             type: sequelize.STRING(100),
             allowNull: false
         },
-        nmUsuario:{
+        nmUsuario: {
             type:sequelize.STRING(25),
             allowNull:false
+        },
+        cnpj: {
+            type:sequelize.STRING(11),
+            allowNull:false            
         },
         email:{
             type:sequelize.STRING(100),
@@ -30,11 +34,13 @@ class Usuario extends sequelize.Model {}
             type:sequelize.DATE,
             allowNull:false,
             defaultValue:sequelize.NOW
-        },
+        }
     },
     {
-        sequelize:database,modelName:'usuario',schema
+        sequelize:database,modelName:'vendedor',schema
+  
     }
     )
 
-    module.exports = Usuario;
+    
+module.exports = Vendedor;
