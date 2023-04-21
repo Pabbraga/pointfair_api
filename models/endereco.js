@@ -29,7 +29,7 @@ class Endereco extends sequelize.Model {}
         },
     },
     {
-        sequelize:database,modelName:'endereco',schema 
+        sequelize:database,modelName:'enderecos',schema 
     }
     )
 

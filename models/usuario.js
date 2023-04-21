@@ -33,7 +33,7 @@ class Usuario extends sequelize.Model {}
         },
     },
     {
-        sequelize:database,modelName:'usuario',schema
+        sequelize:database,modelName:'usuarios',schema
     }
     )
 

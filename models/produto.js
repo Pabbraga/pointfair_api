@@ -20,7 +20,7 @@ class Produto extends sequelize.Model {}
         }
     },
     {
-        sequelize:database,modelName:'produto',schema
+        sequelize:database,modelName:'produtos',schema
     }
     )
 

@@ -16,7 +16,7 @@ class Feira extends sequelize.Model {}
         },
     },
     {
-        sequelize:database,modelName:'feira', schema
+        sequelize:database,modelName:'feiras', schema
     }
     )
     module.exports = Feira;

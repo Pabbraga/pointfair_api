@@ -37,8 +37,7 @@ class Vendedor extends sequelize.Model {}
         }
     },
     {
-        sequelize:database,modelName:'vendedor',schema
-  
+        sequelize:database,modelName:'vendedores',schema
     }
     )
 
