@@ -42,7 +42,7 @@ module.exports =
             }
             return res.json(endereco);
         } catch (error) {
-            return console.error(`Os dados de ${req.body.nome} não foram atualizados.`, error);
+            return console.error("Os dados do endereço não foram atualizados.", error);
         }
     },
 
@@ -52,7 +52,7 @@ module.exports =
             const endereco = await modelEndereco.findByPk(req.body.cdEndereco);
             return res.json(endereco);
         } catch (error) {
-            return console.error("Usuário não encontrado.", error);
+            return console.error("Endereço não encontrado.", error);
         }
     },
 
@@ -63,7 +63,7 @@ module.exports =
             await endereco.destroy();
             return res.json(endereco);
         } catch (error) {
-            return console.error("Registros do usuário não foram deletados.", error);
+            return console.error("Registros do endereços não foram deletados.", error);
         }
     }
 }

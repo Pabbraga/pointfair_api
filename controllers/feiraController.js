@@ -8,7 +8,7 @@ module.exports =
             const feira = await modelFeira.findAll();
             return res.json(feira);
         } catch (error) {
-            return console.error("Erro ao conjultar lista de feiras", error);
+            return console.error("Erro ao consultar lista de feiras", error);
         }
     },
 
@@ -31,12 +31,11 @@ module.exports =
             const feira = await modelFeira.finByPK(req.body.cdFeira);
             if(feira) {
                 feira.nmFeira = req.body.nmFeira;
-
                 await feira.save();
             }
             return res.json(feira);
         } catch(error) {
-            return console.error(`Os dados de ${req.body.nome} não foram atualizados.`, error);
+            return console.error(`Os dados de ${req.body.nmFeira} não foram atualizados.`, error);
         }
     },
     async ListOne(req, res) 
@@ -45,7 +44,7 @@ module.exports =
             const feira = await modelFeira.findByPk(req.body.cdFeira);
             return res.json(feira);
         } catch (error) {
-            return console.error("Feira não encontrado.", error);
+            return console.error("Feira não encontrada.", error);
         }
     },
 

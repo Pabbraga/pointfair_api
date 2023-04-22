@@ -46,7 +46,7 @@ module.exports =
             }
             return res.json(vendedor);
         } catch (error) {
-            return console.error(`Os dados de ${req.body.nome} não foram atualizados.`, error);
+            return console.error(`Os dados de ${req.body.nmUsuario} não foram atualizados.`, error);
         }
     },
 

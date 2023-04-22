@@ -38,7 +38,7 @@ module.exports =
             }
             return res.json(produto);
         } catch (error) {
-            return console.error(`Os dados de ${req.body.nome} não foram atualizados.`, error);
+            return console.error(`Os dados de ${req.body.nmProduto} não foram atualizados.`, error);
         }
     },
 
@@ -48,7 +48,7 @@ module.exports =
             const produto = await modelProduto.findByPk(req.body.cdProduto);
             return res.json(produto);
         } catch (error) {
-            return console.error("Usuário não encontrado.", error);
+            return console.error("Produto não encontrado.", error);
         }
     },
 
@@ -59,7 +59,7 @@ module.exports =
             await produto.destroy();
             return res.json(produto);
         } catch (error) {
-            return console.error("Registros do usuário não foram deletados.", error);
+            return console.error("Registros do produto não foram deletados.", error);
         }
     }
 }
