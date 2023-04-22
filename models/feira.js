@@ -4,7 +4,7 @@ const schema = "";
 
 class Feira extends sequelize.Model {}
     Feira.init({
-        cdFeira:{
+        id:{
             type:sequelize.INTEGER,
             autoIncrement: true,
             allowNull: false,

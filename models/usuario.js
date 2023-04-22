@@ -4,7 +4,7 @@ const schema = "";
 
 class Usuario extends sequelize.Model {}
     Usuario.init({
-        cdUsuario:{
+        id: {
             type:sequelize.INTEGER,
             autoIncrement: true,
             allowNull: false,

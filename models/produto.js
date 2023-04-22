@@ -1,10 +1,11 @@
 const sequelize = require('sequelize');
 const database = require('../src/db');
 const schema = "";
+const Vendedor = require('./vendedor')
 
 class Produto extends sequelize.Model {}
     Produto.init({
-        cdProduto:{
+        id: {
             type:sequelize.INTEGER,
             autoIncrement: true,
             allowNull: false,
@@ -17,11 +18,16 @@ class Produto extends sequelize.Model {}
         descricao:{
             type:sequelize.TEXT('long'),
             allowNull:false
+        },
+        vendedorId: {
+            type:sequelize.INTEGER,
+            allowNull: false
         }
     },
     {
         sequelize:database,modelName:'produtos',schema
     }
     )
+    Produto.belongsTo(Vendedor, {foreignKey: 'vendedorId', allowNull: false})
 
     module.exports = Produto;
