@@ -1,5 +1,5 @@
 const sequelize = require('sequelize');
-const database = new sequelize('pointfairdb','USUARIO','SENHA',{
+const database = new sequelize('pointfairdb','root','Senha',{
     dialect: 'mysql', host:'localhost', port:3306
 });
 database.sync();

@@ -4,6 +4,7 @@ const controllerUsuario = require('../controllers/usuarioController');
 const controllerEndereco = require('../controllers/enderecoController');
 const controllerVendedor = require('../controllers/vendedorController');
 const controllerProduto = require('../controllers/produtoController');
+const controllerEnderecoFeira = require('../controllers/enderecoFeiraController');
 const routes = express.Router();
 
 routes.get('/list/feira', controllerFeira.List);
@@ -35,5 +36,7 @@ routes.get('/add/usuario', controllerUsuario.Add);
 routes.get('/update/usuario', controllerUsuario.Update);
 routes.get('/select/usuario', controllerUsuario.ListOne);
 routes.get('/delete/usuario', controllerUsuario.Delete);
+
+routes.get('/list/enderecoFeira', controllerEnderecoFeira.List);
 
 module.exports = routes;
