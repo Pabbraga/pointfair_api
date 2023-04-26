@@ -1,9 +1,7 @@
 const Endereco = require('../models/endereco');
 const Feira = require('../models/feira');
 
-module.exports =
-{
-    async List(req, res){
+export const getEnderecosFeiras = async(req, res) => {
         Endereco.findAll({
     include: [
         {
@@ -17,7 +15,7 @@ module.exports =
     console.log(error);
     res.status(500).send({message: 'Erro ao buscar endereços'});
 });
-}}
+}
 
 /*
 exports.EnderecoFeira = (req, res) => {

@@ -1,71 +1,63 @@
-const modelUsuario = require('../models/usuario');
+import { db } from "../db.js"
 
-module.exports =
-{
-    async List(req, res)
-    {
-        try {
-            const usuario = await modelUsuario.findAll();
-            return res.json(usuario);
-        } catch (error) {
-            return console.error("Erro ao consultar lista de usuários.", error);
-        }
-    },
+export const getUsuarios = async(_, res) => {
+    const q = "SELECT cdUsuario,nmUsuarioCompleto,nmUsuario,email,telefone,DATE_FORMAT(data_registro,'%Y-%m-%d') as data_registro FROM usuarios";
+    db.query(q, (err, data) => {
+        if (err) return res.json(err);
 
-    async Add(req, res) 
-    {
-        try {
-            const usuario = await modelUsuario.create(
-                {
-                    nmUsuarioCompleto: req.body.nmUsuarioCompleto,
-                    nmUsuario: req.body.nmUsuario,
-                    senha: req.body.senha,
-                    email: req.body.email,
-                    data_registro: req.body.data_registro
-                }
-            );
-            return res.json(usuario);
-        } catch (error) {
-            return console.error("Usuário não pode ser cadastrado.", error);
-        }
-    },
-
-    async Update(req, res) 
-    {
-        try {
-            const usuario = await modelUsuario.findByPk(req.body.cdUsuario);
-            if(usuario) {
-                usuario.nmUsuarioCompleto = req.body.nmUsuarioCompleto;
-                usuario.nmUsuario = req.body.nmUsuario;
-                usuario.senha = req.body.senha;
-                usuario.email = req.body.email;
-
-                await usuario.save();
-            }
-            return res.json(usuario);
-        } catch (error) {
-            return console.error(`Os dados de ${req.body.nmUsuario} não foram atualizados.`, error);
-        }
-    },
-
-    async ListOne(req, res) 
-    {
-        try {
-            const usuario = await modelUsuario.findByPk(req.body.cdUsuario);
-            return res.json(usuario);
-        } catch (error) {
-            return console.error("Usuário não encontrado.", error);
-        }
-    },
-
-    async Delete(req, res)
-    {
-        try {
-            const usuario = await modelUsuario.findByPk(req.body.cdUsuario);
-            await usuario.destroy();
-            return res.json(usuario);
-        } catch (error) {
-            return console.error("Registros do usuário não foram deletados.", error);
-        }
-    }
+        return res.status(200).json(data);
+    });
 }
+
+export const addUsuario = async(req, res) => {
+    const q = "INSERT INTO usuarios(`nmUsuarioCompleto`, `nmUsuario`, `email`, `telefone`, `data_registro`) VALUES(?)";
+    const dt_atual = new Date()
+    const values = [
+        req.body.nmUsuarioCompleto,
+        req.body.nmUsuario,
+        req.body.email,
+        req.body.telefone,
+        dt_atual
+    ]
+    db.query(q, [values], (err) => {
+        if(err) return res.json(err);
+
+        return res.status(200).json("Usuário criado com sucesso.");
+    })
+}
+
+export const updateUsuario = async(req, res) => {
+    const q = "UPDATE usuarios SET `nmUsuarioCompleto` = ?, `nmUsuario` = ?, `email` = ?, `telefone` = ? WHERE `cdUsuario` = ?";
+    const values = [
+        req.body.nmUsuarioCompleto,
+        req.body.nmUsuario,
+        req.body.email,
+        req.body.telefone
+    ]
+
+    db.query(q, [...values, req.params.id], (err) => {
+        if(err) return res.json(err);
+
+        return res.status(200).json("Usuário atualizado com sucesso.");
+    });
+};
+
+export const getUsuario = async(req, res) => {
+    const q = "SELECT cdUsuario,nmUsuarioCompleto,nmUsuario,email,telefone,DATE_FORMAT(data_registro,'%Y-%m-%d') as data_registro FROM usuarios WHERE `cdUsuario` = ?"
+    
+    db.query(q, [req.params.id], (err, data) => {
+        if(err) return res.json(err);
+
+        return res.status(200).json(data);
+    });
+}
+
+export const deleteUsuario = async(req, res) => {
+    const q = "DELETE FROM usuarios WHERE `cdUsuario` = ?";
+
+    db.query(q, [req.params.id], (err) => {
+        if(err) return res.json(err)
+
+        return res.status(200).json("Usuário excluído com sucesso.")
+    });
+};
