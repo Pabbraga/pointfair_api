@@ -1,58 +1,59 @@
 import { db } from "../db.js"
 
-export const getProdutos = async(req, res) => {        
-    try {
-        const produto = await modelProduto.findAll();
-        return res.json(produto);
-    } catch (error) {
-        return console.error("Erro ao consultar lista de produtos.", error);
-    }
+export const getProduto = async(_, res) => {
+    const q = "SELECT cdProtudo,nmproduto, descricao, DATE_FORMAT(data_registro,'%Y-%m-%d') as data_registro FROM produtos";
+    db.query(q, (err, data) => {
+        if (err) return res.json(err);
+
+        return res.status(200).json(data);
+    });
 }
 
 export const addProduto = async(req, res) => {
-    try {
-        const produto = await modelProduto.create(
-            {
-                nmProduto: req.body.nmProduto,
-                descricao: req.body.descricao,
-            }
-        );
-        return res.json(produto);
-    } catch (error) {
-        return console.error("Produto não pode ser cadastrado.", error);
-    }
+    const q = "INSERT INTO Produtos(`nmProduto`, `descricao`, `data_registro`) VALUES(?)";
+    const dt_atual = new Date()
+    const values = [
+        req.body.nmProduto,
+        req.body.descricao,
+        dt_atual
+    ]
+    db.query(q, [values], (err) => {
+        if(err) return res.json(err);
+
+        return res.status(200).json("Produto criado com sucesso.");
+    })
 }
 
 export const updateProduto = async(req, res) => {
-    try {
-        const produto = await modelProduto.findByPk(req.body.cdProduto);
-        if(produto) {
-            produto.nmProduto = req.body.nmProduto;
-            produto.descricao = req.body.descricao;
+    const q = "UPDATE protudos SET `nmProduto` = ? WHERE `cdproduto` = ?";
+    const values = [
+        req.body.nmProduto,
+        req.body.descricao
+    ]
 
-            await usuario.save();
-        }
-        return res.json(produto);
-    } catch (error) {
-        return console.error(`Os dados de ${req.body.nmProduto} não foram atualizados.`, error);
-    }
-}
+    db.query(q, [...values, req.params.id], (err) => {
+        if(err) return res.json(err);
 
-export const getProduto = async(req, res) => {
-    try {
-        const produto = await modelProduto.findByPk(req.body.cdProduto);
-        return res.json(produto);
-    } catch (error) {
-        return console.error("Produto não encontrado.", error);
-    }
+        return res.status(200).json("Produto atualizado com sucesso.");
+    });
+};
+
+export const getProdutos = async(req, res) => {
+    const q = "SELECT cdProduto,nmProduto,DATE_FORMAT(data_registro,'%Y-%m-%d') as data_registro FROM produtos WHERE `cdProduto` = ?"
+    
+    db.query(q, [req.params.id], (err, data) => {
+        if(err) return res.json(err);
+
+        return res.status(200).json(data);
+    });
 }
 
 export const deleteProduto = async(req, res) => {
-    try {
-        const produto = await modelProduto.findByPk(req.body.cdProduto);
-        await produto.destroy();
-        return res.json(produto);
-    } catch (error) {
-        return console.error("Registros do produto não foram deletados.", error);
-    }
-}
+    const q = "DELETE FROM produtos WHERE `cdproduto` = ?";
+
+    db.query(q, [req.params.id], (err) => {
+        if(err) return res.json(err)
+
+        return res.status(200).json("Produto excluído com sucesso.")
+    });
+};

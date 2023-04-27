@@ -4,14 +4,14 @@ import { addVendedor, getVendedor, getVendedores, updateVendedor, deleteVendedor
 
 const router = express.Router();
 
-router.post("/", addVendedor);
+router.post("/add", addVendedor);
 
-router.get("/", getVendedor);
+router.get("/getOne/:id", getVendedor);
 
-router.get("/", getVendedores);
+router.get("/getAll", getVendedores);
 
-router.put("/", updateVendedor);
+router.put("/update/:id", updateVendedor);
 
-router.delete("/", deleteVendedor);
+router.delete("/delete/:id", deleteVendedor);
 
 export default router;

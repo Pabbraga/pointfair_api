@@ -1,65 +1,65 @@
 import { db } from "../db.js"
 
-export const getVendedores = async(req, res) => {
-    try {
-        const vendedor = await modelVendedor.findAll();
-        return res.json(vendedor);
-    } catch (error) {
-        return console.error("Erro ao consultar lista de Vendedor.", error);
-    }
+export const getVendedores = async(_, res) => {
+    const q = "SELECT cdVendedor, nmVendedorCompleto, nmUsuario, cnpj, email, telefone, DATE_FORMAT(data_registro,'%Y-%m-%d') as data_registro FROM vendedores";
+    db.query(q, (err, data) => {
+        if (err) return res.json(err);
+
+        return res.status(200).json(data);
+    });
 }
 
 export const addVendedor = async(req, res) => {
-    try {
-        const vendedor = await modelVendedor.create(
-            {
-                nmVendedorCompleto: req.body.nmVendedorCompleto,
-                nmUsuario: req.body.nmUsuario,
-                cnpj: req.body.cnpj,
-                senha: req.body.senha,
-                email: req.body.email,
-                data_registro: req.body.data_registro
-            }
-        );
-        return res.json(vendedor);
-    } catch (error) {
-        return console.error("Vendedor não pode ser cadastrado.", error);
-    }
+    const q = "INSERT INTO vendedores(`nmVendedorCompleto`, `nmUsuario`, `cnpj`, `email`, `telefone`, `data_registro`) VALUES(?)";
+    const dt_atual = new Date()
+    const values = [
+        req.body.nmVendedorCompleto,
+        req.body.nmUsuario,
+        req.body.cnpj,
+        req.body.email,
+        req.body.telefone,
+        dt_atual
+    ]
+    db.query(q, [values], (err) => {
+        if(err) return res.json(err);
+
+        return res.status(200).json("Feira criado com sucesso.");
+    })
 }
 
 export const updateVendedor = async(req, res) => {
-    try {
-        const vendedor = await modelVendedor.findByPk(req.body.cdVendedor);
-        if(vendedor) {
-            vendedor.nmVendedorCompleto = req.body.nmVendedorCompleto;
-            vendedor.nmUsuario = req.body.nmUsuario;
-            vendedor.cnpj = req.body.cnpj;
-            vendedor.senha = req.body.senha;
-            vendedor.email = req.body.email;
+    const q = "UPDATE vendedores SET `nmVendedorCompleto` = ?, `nmUsuario` = ?, `cnpj` = ?, `email` = ?, `telefone` = ? WHERE `cdUsuario` = ?";
+    const values = [
+        req.body.nmUsuarioCompleto,
+        req.body.nmUsuario,
+        req.body.cnpj,
+        req.body.email,
+        req.body.telefone
+    ]
 
-            await vendedor.save();
-        }
-        return res.json(vendedor);
-    } catch (error) {
-        return console.error(`Os dados de ${req.body.nmUsuario} não foram atualizados.`, error);
-    }
-}
+    db.query(q, [...values, req.params.id], (err) => {
+        if(err) return res.json(err);
+
+        return res.status(200).json("Vendedor atualizado com sucesso.");
+    });
+};
 
 export const getVendedor = async(req, res) => {
-    try {
-        const vendedor = await modelVendedor.findByPk(req.body.cdVendedor);
-        return res.json(vendedor);
-    } catch (error) {
-        return console.error("Usuário não encontrado.", error);
-    }
+    const q = "SELECT cdVendedor,nmVendedorCompleto,nmUsuario,cnpj,email,telefone,DATE_FORMAT(data_registro,'%Y-%m-%d') as data_registro FROM vendedores WHERE `cdVendedor` = ?"
+    
+    db.query(q, [req.params.id], (err, data) => {
+        if(err) return res.json(err);
+
+        return res.status(200).json(data);
+    });
 }
 
 export const deleteVendedor = async(req, res) => {
-    try {
-        const vendedor = await modelVendedor.findByPk(req.body.cdVendedor);
-        await vendedor.destroy();
-        return res.json(vendedor);
-    } catch (error) {
-        return console.error("Registros do usuário não foram deletados.", error);
-    }
-}
+    const q = "DELETE FROM vendedores WHERE `cdVendedor` = ?";
+
+    db.query(q, [req.params.id], (err) => {
+        if(err) return res.json(err)
+
+        return res.status(200).json("Vendedor excluído com sucesso.")
+    });
+};

@@ -4,14 +4,14 @@ import { addEndereco, getEndereco, getEnderecos, updateEndereco, deleteEndereco}
 
 const router = express.Router();
 
-router.post("/", addEndereco);
+router.post("/add", addEndereco);
 
-router.get("/", getEndereco);
+router.get("/getOne/:id", getEndereco);
 
-router.get("/", getEnderecos);
+router.get("/getAll", getEnderecos);
 
-router.put("/", updateEndereco);
+router.put("/update/:id", updateEndereco);
 
-router.delete("/", deleteEndereco);
+router.delete("/delete/:id", deleteEndereco);
 
 export default router;
