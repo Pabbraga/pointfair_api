@@ -1,7 +1,7 @@
 import { db } from "../db.js"
 
-export const getProduto = async(_, res) => {
-    const q = "SELECT cdProtudo,nmproduto, descricao, DATE_FORMAT(data_registro,'%Y-%m-%d') as data_registro FROM produtos";
+export const getProdutos = async(_, res) => {
+    const q = "SELECT cdProduto, nmProduto, descricao, DATE_FORMAT(data_registro,'%Y-%m-%d') as data_registro FROM produtos";
     db.query(q, (err, data) => {
         if (err) return res.json(err);
 
@@ -10,7 +10,7 @@ export const getProduto = async(_, res) => {
 }
 
 export const addProduto = async(req, res) => {
-    const q = "INSERT INTO Produtos(`nmProduto`, `descricao`, `data_registro`) VALUES(?)";
+    const q = "INSERT INTO produtos(`nmProduto`, `descricao`, `data_registro`) VALUES(?)";
     const dt_atual = new Date()
     const values = [
         req.body.nmProduto,
@@ -25,7 +25,7 @@ export const addProduto = async(req, res) => {
 }
 
 export const updateProduto = async(req, res) => {
-    const q = "UPDATE protudos SET `nmProduto` = ? WHERE `cdproduto` = ?";
+    const q = "UPDATE produtos SET `nmProduto` = ?, `descricao` = ? WHERE `cdProduto` = ?";
     const values = [
         req.body.nmProduto,
         req.body.descricao
@@ -38,8 +38,8 @@ export const updateProduto = async(req, res) => {
     });
 };
 
-export const getProdutos = async(req, res) => {
-    const q = "SELECT cdProduto,nmProduto,DATE_FORMAT(data_registro,'%Y-%m-%d') as data_registro FROM produtos WHERE `cdProduto` = ?"
+export const getProduto = async(req, res) => {
+    const q = "SELECT cdProduto, nmProduto, descricao, DATE_FORMAT(data_registro,'%Y-%m-%d') as data_registro FROM produtos WHERE `cdProduto` = ?"
     
     db.query(q, [req.params.id], (err, data) => {
         if(err) return res.json(err);
@@ -49,7 +49,7 @@ export const getProdutos = async(req, res) => {
 }
 
 export const deleteProduto = async(req, res) => {
-    const q = "DELETE FROM produtos WHERE `cdproduto` = ?";
+    const q = "DELETE FROM produtos WHERE `cdProduto` = ?";
 
     db.query(q, [req.params.id], (err) => {
         if(err) return res.json(err)
