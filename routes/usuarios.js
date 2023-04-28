@@ -4,14 +4,14 @@ import { addUsuario, updateUsuario, getUsuarios, getUsuario, deleteUsuario } fro
 
 const router = express.Router();
 
-router.post("/add", addUsuario);
+router.post("/", addUsuario);
 
-router.get("/getOne/:id", getUsuario);
+router.get("/:id", getUsuario);
 
-router.get("/getAll", getUsuarios);
+router.get("/", getUsuarios);
 
-router.put("/update/:id", updateUsuario);
+router.put("/:id", updateUsuario);
 
-router.delete("/delete/:id", deleteUsuario);
+router.delete("/:id", deleteUsuario);
 
 export default router

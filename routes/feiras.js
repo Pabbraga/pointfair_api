@@ -4,14 +4,14 @@ import { addFeira, getFeira, getFeiras, updateFeira, deleteFeira } from "../cont
 
 const router = express.Router();
 
-router.post("/add", addFeira);
+router.post("/", addFeira);
 
-router.get("/getOne/:id", getFeira);
+router.get("/:id", getFeira);
 
-router.get("/getAll", getFeiras);
+router.get("/", getFeiras);
 
-router.put("/update", updateFeira);
+router.put("/", updateFeira);
 
-router.delete("/delete/:id", deleteFeira);
+router.delete("/:id", deleteFeira);
 
 export default router;

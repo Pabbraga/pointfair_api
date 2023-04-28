@@ -20,5 +20,5 @@ app.use("/fair", fairsRoutes);
 app.use("/address", addressesRoutes);
 
 app.listen(8000, ()=>{
-    console.log("Servidor se encontra na porta 8000: http://localhost:8000");
+    console.log("Servidor se encontra na rota: http://localhost:8000");
 });
