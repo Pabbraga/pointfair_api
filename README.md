@@ -13,4 +13,5 @@ Logo ao iniciar o projeto utilize o seguinte comando no terminal
 npm install
 ```
 
+
 <div>Lembre-se de fazer a configuração de acesso do seu banco.</div>
