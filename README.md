@@ -19,3 +19,9 @@ npm install
 1. Deverá copiar o arquivo ``.env.example``, dentro do próprio projeto
 2. Substituir o dados com suas configurações
 3. Apagar o ``.example``
+
+## Configurando conexões
+
+1. Deverá copiar o arquivo ``.env.example``, dentro do próprio projeto
+2. Substituir o dados com suas configurações
+3. Apagar o ``.example``
