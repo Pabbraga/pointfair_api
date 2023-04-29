@@ -1,24 +1,21 @@
 import express from "express";
 import cors from "cors";
+import routes from "./routes/router.js";
+import conn from "./db/conn.js";
+import dotenv from 'dotenv';
 
-import usersRoutes from "./routes/usuarios.js";
-import productsRoutes from "./routes/produtos.js";
-import sellersRoutes from "./routes/vendedores.js";
-import fairsRoutes from "./routes/feiras.js";
-import addressesRoutes from "./routes/enderecos.js";
-
+dotenv.config();
+const port = process.env.PORT;
 
 const app = express();
 
-app.use(express.json());
 app.use(cors());
+app.use(express.json());
 
-app.use("/user", usersRoutes);
-app.use("/product", productsRoutes);
-app.use("/seller", sellersRoutes);
-app.use("/fair", fairsRoutes);
-app.use("/address", addressesRoutes);
+conn();
 
-app.listen(8000, ()=>{
-    console.log("Servidor se encontra na rota: http://localhost:8000");
+app.use('/', routes);
+
+app.listen(port, ()=>{
+    console.log(`Servidor se encontra na rota: http://localhost:${port}`);
 });
