@@ -1,69 +1,61 @@
-const modelEndereco = require('../models/endereco');
+import { db } from "../db.js"
 
-module.exports =
-{
-    async List(req, res)
-    {
-        try {
-            const endereco = await modelEndereco.findAll();
-            return res.json(endereco);
-        } catch(error) {
-            return console.error("Erro ao consultar lista de endereço", error);
-        }
-    },
-    async Add(req, res)
-    {
-        try {
-            const endereco = await modelEndereco.create(
-                {
-                    nmCidade: req.body.nmCidade,
-                    nmBairro: req.body.nmBairro,
-                    nmRua: req.body.nmRua,
-                    data_registro: req.body.data_registro
-                }
-            );
-            return res.json(endereco);
-        }  catch (error) {
-            return console.error("Endereço da feira não pode ser cadastrado.", error);
-        }
-    },
+export const getEnderecos = async(_, res) => {
+    const q = "SELECT cdEndereco,nmCidade,nmBairro,nmRua,DATE_FORMAT(data_registro,'%Y-%m-%d') as data_registro FROM enderecos";
+    db.query(q, (err, data) => {
+        if (err) return res.json(err);
 
-    async Update(req, res) 
-    {
-        try {
-            const endereco = await modelEndereco.findByPk(req.body.cdEndereco);
-
-            if(endereco) {
-                endereco.nmCidade =  req.body.nmCidade;
-                endereco.nmBairro = req.body.nmBairro;
-                endereco.nmRua = req.body.nmRua;
-                
-                await endereco.save()
-            }
-            return res.json(endereco);
-        } catch (error) {
-            return console.error(`Os dados de ${req.body.nome} não foram atualizados.`, error);
-        }
-    },
-
-    async ListOne(req, res) 
-    {
-        try {
-            const endereco = await modelEndereco.findByPk(req.body.cdEndereco);
-            return res.json(endereco);
-        } catch (error) {
-            return console.error("Usuário não encontrado.", error);
-        }
-    },
-
-    async Delete(req, res)
-    {
-        try {
-            const endereco = await modelEndereco.findByPk(req.body.cdEndereco);
-            await endereco.destroy();
-            return res.json(endereco);
-        } catch (error) {
-            return console.error("Registros do usuário não foram deletados.", error);
-        }
-    }
+        return res.status(200).json(data);
+    });
 }
+
+export const addEndereco = async(req, res) => {
+    const q = "INSERT INTO enderecos(`nmCidade`, `nmBairro`, `nmRua`, `data_registro`) VALUES(?)";
+    const dt_atual = new Date()
+    const values = [
+        req.body.nmCidade,
+        req.body.nmBairro,
+        req.body.nmRua,
+        dt_atual
+    ]
+    db.query(q, [values], (err) => {
+        if(err) return res.json(err);
+
+        return res.status(200).json("Usuário criado com sucesso.");
+    })
+}
+
+export const updateEndereco = async(req, res) => {
+    const q = "UPDATE enderecos SET `nmCidade` = ?, `nmBairro` = ?, `nmRua` = ? WHERE `cdEndereco` = ?";
+    const values = [
+        req.body.nmCidade,
+        req.body.nmBairro,
+        req.body.nmRua,
+    ]
+
+    db.query(q, [...values, req.params.id], (err) => {
+        if(err) return res.json(err);
+
+        return res.status(200).json("Usuário atualizado com sucesso.");
+    });
+};
+
+export const getEndereco = async(req, res) => {
+    const q = "SELECT cdEndereco,nmCidade,nmBairro,nmRua,telefone,DATE_FORMAT(data_registro,'%Y-%m-%d') as data_registro FROM usuarios WHERE `cdUsuario` = ?"
+    
+    db.query(q, [req.params.id], (err, data) => {
+        if(err) return res.json(err);
+
+        return res.status(200).json(data);
+    });
+}
+
+export const deleteEndereco = async(req, res) => {
+    const q = "DELETE FROM enderecos WHERE `cdEndereco` = ?";
+
+    db.query(q, [req.params.id], (err) => {
+        if(err) return res.json(err)
+
+        return res.status(200).json("Endereço excluído com sucesso.")
+    });
+};

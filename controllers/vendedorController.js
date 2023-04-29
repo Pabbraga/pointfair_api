@@ -1,73 +1,65 @@
-const modelVendedor = require('../models/vendedor');
+import { db } from "../db.js"
 
-module.exports =
-{
-   async List(req, res)
-   {
-        try {
-            const vendedor = await modelVendedor.findAll();
-            return res.json(vendedor);
-        } catch (error) {
-            return console.error("Erro ao consultar lista de Vendedor.", error);
-        }
-   },
+export const getVendedores = async(_, res) => {
+    const q = "SELECT cdVendedor, nmVendedorCompleto, nmVendedor, cnpj, email, telefone, DATE_FORMAT(data_registro,'%Y-%m-%d') as data_registro FROM vendedores";
+    db.query(q, (err, data) => {
+        if (err) return res.json(err);
 
-   async Add(req, res) 
-    {
-        try {
-            const vendedor = await modelVendedor.create(
-                {
-                    nmVendedorCompleto: req.body.nmVendedorCompleto,
-                    nmUsuario: req.body.nmUsuario,
-                    cnpj: req.body.cnpj,
-                    senha: req.body.senha,
-                    email: req.body.email,
-                    data_registro: req.body.data_registro
-                }
-            );
-            return res.json(vendedor);
-        } catch (error) {
-            return console.error("Vendedor não pode ser cadastrado.", error);
-        }
-    },
-
-    async Update(req, res) 
-    {
-        try {
-            const vendedor = await modelVendedor.findByPk(req.body.cdVendedor);
-            if(vendedor) {
-                vendedor.nmVendedorCompleto = req.body.nmVendedorCompleto;
-                vendedor.nmUsuario = req.body.nmUsuario;
-                vendedor.cnpj = req.body.cnpj;
-                vendedor.senha = req.body.senha;
-                vendedor.email = req.body.email;
-
-                await vendedor.save();
-            }
-            return res.json(vendedor);
-        } catch (error) {
-            return console.error(`Os dados de ${req.body.nome} não foram atualizados.`, error);
-        }
-    },
-
-    async ListOne(req, res) 
-    {
-        try {
-            const vendedor = await modelVendedor.findByPk(req.body.cdVendedor);
-            return res.json(vendedor);
-        } catch (error) {
-            return console.error("Usuário não encontrado.", error);
-        }
-    },
-
-    async Delete(req, res)
-    {
-        try {
-            const vendedor = await modelVendedor.findByPk(req.body.cdVendedor);
-            await vendedor.destroy();
-            return res.json(vendedor);
-        } catch (error) {
-            return console.error("Registros do usuário não foram deletados.", error);
-        }
-    }
+        return res.status(200).json(data);
+    });
 }
+
+export const addVendedor = async(req, res) => {
+    const q = "INSERT INTO vendedores(`nmVendedorCompleto`, `nmVendedor`, `cnpj`, `email`, `telefone`, `data_registro`) VALUES(?)";
+    const dt_atual = new Date()
+    const values = [
+        req.body.nmVendedorCompleto,
+        req.body.nmVendedor,
+        req.body.cnpj,
+        req.body.email,
+        req.body.telefone,
+        dt_atual
+    ]
+    db.query(q, [values], (err) => {
+        if(err) return res.json(err);
+
+        return res.status(200).json("Vendedor criado com sucesso.");
+    })
+}
+
+export const updateVendedor = async(req, res) => {
+    const q = "UPDATE vendedores SET `nmVendedorCompleto` = ?, `nmVendedor` = ?, `cnpj` = ?, `email` = ?, `telefone` = ? WHERE `cdUsuario` = ?";
+    const values = [
+        req.body.nmVendedorCompleto,
+        req.body.nmVendedor,
+        req.body.cnpj,
+        req.body.email,
+        req.body.telefone
+    ]
+
+    db.query(q, [...values, req.params.id], (err) => {
+        if(err) return res.json(err);
+
+        return res.status(200).json("Vendedor atualizado com sucesso.");
+    });
+};
+
+export const getVendedor = async(req, res) => {
+    const q = "SELECT cdVendedor,nmVendedorCompleto,nmVendedor,cnpj,email,telefone,DATE_FORMAT(data_registro,'%Y-%m-%d') as data_registro FROM vendedores WHERE `cdVendedor` = ?"
+    
+    db.query(q, [req.params.id], (err, data) => {
+        if(err) return res.json(err);
+
+        return res.status(200).json(data);
+    });
+}
+
+export const deleteVendedor = async(req, res) => {
+    const q = "DELETE FROM vendedores WHERE `cdVendedor` = ?";
+
+    db.query(q, [req.params.id], (err) => {
+        if(err) return res.json(err)
+
+        return res.status(200).json("Vendedor excluído com sucesso.")
+    });
+};
