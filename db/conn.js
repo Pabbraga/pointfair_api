@@ -11,8 +11,8 @@ const main = async() => {
         mongoose.set("strictQuery", true);
         await mongoose.connect(`mongodb+srv://${user}:${pass}@${cluster}.mongodb.net/?retryWrites=true&w=majority`);
         console.log("Conexão efetuada com sucesso.");
-    } catch (error) {
-        console.log(error)
+    } catch (err) {
+        console.log(err)
     }
 }
 
