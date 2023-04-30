@@ -54,11 +54,11 @@ const addressController = {
     delete: async(req, res) => {
         try {
             const id = req.params.id;
-            const data = await Seller.findById(id);
+            const data = await Address.findById(id);
             if(!data) {
                 return res.status(404).json("Endereço não encontrado.");
             }
-            await Seller.findByIdAndDelete(id);
+            await Address.findByIdAndDelete(id);
             return res.status(200).json("Endereço apagado com sucesso.");
         } catch (err) {
             return res.json(err);

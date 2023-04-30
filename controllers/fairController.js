@@ -6,7 +6,7 @@ const fairController = {
             const fair = {
                 nmFeira: req.body.nmFeira,
             }
-            await User.create(fair);
+            await Fair.create(fair);
             return res.status(201).json("Feira criado com sucesso.");
         } catch (err) {
             return res.json(err);
@@ -41,7 +41,7 @@ const fairController = {
             if(!data) {
                 return res.status(404).json("Feira não encontrado.");
             }
-            await User.findByIdAndUpdate(id, data);
+            await Fair.findByIdAndUpdate(id, data);
             return res.status(200).json("Feira atualizado com sucesso.");
         } catch (err) {
             return res.json(err);
@@ -50,12 +50,12 @@ const fairController = {
     delete: async(req, res) => {
         try {
             const id = req.params.id;
-            const data = User.findById(id);
+            const data = Fair.findById(id);
             if(!data) {
                 return res.status(404).json("Feira não encontrado.");
             }
-            await Feira.findByIdAndDelete(id);
-            return res.status(200).json("Feira não encontrado.");
+            await Fair.findByIdAndDelete(id);
+            return res.status(200).json("Feira apagada com sucesso.");
         } catch (err) {
             return res.json(err);
         }

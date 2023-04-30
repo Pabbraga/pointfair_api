@@ -6,8 +6,7 @@ const fairSchema = new Schema({
     nmFeira: {
         type: String,
         required: true
-    },
-    
+    }
 }, {timestamps: true}
 );
 

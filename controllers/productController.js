@@ -57,7 +57,7 @@ const productController = {
                 return res.status(404).json("Produto não encontrado.");
             }
             await Product.findByIdAndDelete(id);
-            return res.status(200).json("Produto não encontrado.");
+            return res.status(200).json("Produto apagado com sucesso.");
         } catch (err) {
             return res.json(err);
         }
