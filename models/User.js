@@ -20,6 +20,26 @@ const userSchema = new Schema({
         type: String,
         required: true
     },
+    cnpj: {
+        type: String,
+        required: false
+    },
+    localidade: {
+        type: String,
+        required: true
+    },
+    senha:{
+        type: String,
+        required: true
+    },
+    identificador:{
+        type: String,
+        required: true
+    },
+    seguindo: {
+        type: String,
+        required: false
+    },
     following: {
         type: [sellerSchema]
     }

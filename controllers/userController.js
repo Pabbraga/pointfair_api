@@ -8,6 +8,11 @@ const userController = {
                 nmUsuario: req.body.nmUsuario,
                 email: req.body.email,
                 telefone: req.body.telefone,
+                cnpj: req.body.cnpj,
+                localidade: req.body.localidade,
+                senha: req.body.senha,
+                identificador: req.body.identificador,
+                seguindo: req.body.seguindo,
                 following: req.body.following
             }
             await User.create(user);
@@ -44,6 +49,11 @@ const userController = {
                 nmUsuario: req.body.nmUsuario,
                 email: req.body.email,
                 telefone: req.body.telefone,
+                cnpj: req.body.cnpj,
+                localidade: req.body.localidade,
+                senha: req.body.senha,
+                identificador: req.body.identificador,
+                seguindo: req.body.seguindo,
                 following: req.body.following
             }
             if(!data) {
