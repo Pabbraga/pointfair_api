@@ -3,13 +3,21 @@ import mongoose from "mongoose";
 const { Schema } = mongoose;
 
 const productSchema = new Schema({
-    nmProduto: {
+    nmProduct: {
         type: String,
-        required: true
+        require: true
     },
-    descricao: {
+    description: {
         type: String,
-        required: true
+        require: true
+    },
+    image: {
+        type: String,
+        require: true
+    },
+    inStock: {
+        type: Boolean,
+        require: true
     }
 }, {timestamps: true}
 );

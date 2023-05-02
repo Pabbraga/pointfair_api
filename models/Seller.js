@@ -3,22 +3,47 @@ import mongoose from "mongoose";
 const { Schema } = mongoose;
 
 const sellerSchema = new Schema({
-    nmVendedorCompleto: {
+    nmFullSeller: {
         type: String,
-        required: true
+        require: true
     },
-    nmVendedor: {
+    nmSeller: {
         type: String,
-        required: true
+        require: true
+    },
+    photo: {
+        type: String,
+        require: false
+    },
+    cnpj: {
+        type: String,
+        require: false
     },
     email: {
         type: String,
-        required: true
+        require: true
     },
-    telefone: {
+    password: {
         type: String,
-        required: true
-    }
+        require: true
+    },
+    phone: {
+        type: String,
+        require: true
+    },
+    location: {
+        type: String,
+        require: true
+    },
+    // publishes: [{
+    //     type: mongoose.Schema.Types.ObjectId,
+    //     ref: 'Publish'
+    // }],
+    products: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Product',
+        require: false
+    }]
 }, {timestamps: true}
 );
 

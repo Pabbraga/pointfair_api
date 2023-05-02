@@ -3,17 +3,21 @@ import mongoose from "mongoose";
 const { Schema } = mongoose;
 
 const addressSchema = new Schema({
-    nmCidade: {
+    nmCity: {
         type: String,
-        required: true
+        require: true
     },
-    nmBairro: {
+    nmDistrict: {
         type: String,
-        required: true
+        require: true
     },
-    nmRua: {
+    nmStreet: {
         type: String,
-        required: true
+        require: true
+    },
+    complements: {
+        type: String,
+        require: false
     }
 }, {timestamps: true}
 );

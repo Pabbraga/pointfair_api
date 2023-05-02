@@ -3,10 +3,19 @@ import mongoose from "mongoose";
 const { Schema } = mongoose;
 
 const fairSchema = new Schema({
-    nmFeira: {
+    nmFair: {
         type: String,
-        required: true
-    }
+        require: true
+    },
+    description: {
+        type: String,
+        require: false
+    },
+    // address: {
+    //     type: mongoose.Schema.Types.ObjectId,
+    //     ref: 'Address',
+    //     require: true
+    // }
 }, {timestamps: true}
 );
 

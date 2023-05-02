@@ -1,47 +1,40 @@
 import mongoose from "mongoose";
-import { sellerSchema } from "./Seller.js" 
 
 const { Schema } = mongoose;
 
 const userSchema = new Schema({
-    nmUsuarioCompleto: {
+    nmFullUser: {
         type: String,
-        required: true
+        require: true
     },
-    nmUsuario: {
+    nmUser: {
         type: String,
-        required: true
+        require: true
+    },
+    photo: {
+        type: String,
+        require: false
     },
     email: {
         type: String,
-        required: true
+        require: true
     },
-    telefone: {
+    phone: {
         type: String,
-        required: true
+        require: true
     },
-    cnpj: {
+    location: {
         type: String,
-        required: false
+        require: true
     },
-    localidade: {
+    password:{
         type: String,
-        required: true
-    },
-    senha:{
-        type: String,
-        required: true
-    },
-    identificador:{
-        type: String,
-        required: true
-    },
-    seguindo: {
-        type: String,
-        required: false
+        require: true
     },
     following: {
-        type: [sellerSchema]
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Seller",
+        require: false
     }
 }, {timestamps: true}
 );

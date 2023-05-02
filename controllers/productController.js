@@ -4,8 +4,10 @@ const productController = {
     create: async(req, res) => {
         try {
             const product = {
-                nmProduto: req.body.nmProduto,
+                nmProduct: req.body.nmProduto,
                 descricao: req.body.descricao,
+                image: req.body.image,
+                inStock: req.body.inStock
             }
             await Product.create(product);
             return res.status(201).json("produto criado com sucesso.");
@@ -37,8 +39,10 @@ const productController = {
         try {
             const id = req.params.id;
             const data = {
-                nmProduto: req.body.nmProduto,
+                nmProduct: req.body.nmProduto,
                 descricao: req.body.descricao,
+                image: req.body.image,
+                inStock: req.body.inStock
             }
             if(!data) {
                 return res.status(404).json("Produto não encontrado.");

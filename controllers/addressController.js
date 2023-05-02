@@ -4,9 +4,10 @@ const addressController = {
     create: async(req, res) => {
         try {
             const address = {
-                nmCidade: req.body.nmCidade,
-                nmBairro: req.body.nmBairro,
-                nmRua: req.body.nmRua,
+                nmCity: req.body.nmCity,
+                nmDistrict: req.body.nmDistrict,
+                nmStreet: req.body.nmStreet,
+                complements: req.body.complements
             }
             await Address.create(address);
             return res.status(201).json("Endereço criado com sucesso.");
@@ -38,9 +39,10 @@ const addressController = {
         try {
             const id = req.params.id;
             const data = {
-                nmCidade: req.body.nmCidade,
-                nmBairro: req.body.nmBairro,
-                nmRua: req.body.nmRua,
+                nmCity: req.body.nmCity,
+                nmDistrict: req.body.nmDistrict,
+                nmStreet: req.body.nmStreet,
+                complements: req.body.complements
             };
             if(!data) {
                 return res.status(404).json("Endereço não encontrado.");

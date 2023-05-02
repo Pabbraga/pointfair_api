@@ -4,10 +4,15 @@ const sellerController = {
     create: async(req, res) => {
         try {
             const seller = {
-                nmVendedorCompleto: req.body.nmVendedorCompleto,
-                nmVendedor: req.body.nmVendedor,
+                nmUserFull: req.body.nmSellerFull,
+                nmUser: req.body.nmSellerFull,
+                photo: req.body.photo,
                 email: req.body.email,
-                telefone: req.body.telefone,
+                phone: req.body.phone,
+                cnpj: req.body.cnpj,
+                location: req.body.location,
+                password: req.body.password,
+                following: req.body.following
             }
             await Seller.create(seller);
             return res.status(201).json("Vendedor criado com sucesso.");
@@ -39,10 +44,15 @@ const sellerController = {
         try {
             const id = req.params.id;
             const data = {
-                nmVendedorCompleto: req.body.nmVendedorCompleto,
-                nmVendedor: req.body.nmVendedor,
+                nmSellerFull: req.body.nmUsuarioCompleto,
+                nmSeller: req.body.nmUsuario,
+                photo: req.body.photo,
                 email: req.body.email,
-                telefone: req.body.telefone,
+                phone: req.body.telefone,
+                cnpj: req.body.cnpj,
+                location: req.body.localidade,
+                password: req.body.senha,
+                following: req.body.following
             };
             if(!data) {
                 return res.status(404).json("Vendedor não encontrado.");

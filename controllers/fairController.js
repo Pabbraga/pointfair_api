@@ -4,7 +4,8 @@ const fairController = {
     create: async(req, res) => {
         try {
             const fair = {
-                nmFeira: req.body.nmFeira,
+                nmFair: req.body.nmFair,
+                description: req.body.description
             }
             await Fair.create(fair);
             return res.status(201).json("Feira criado com sucesso.");
