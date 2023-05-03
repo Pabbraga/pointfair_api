@@ -1,3 +1,4 @@
+import bcrypt from 'bcrypt';
 import { User } from "../models/User.js";
 
 const userController = {
@@ -13,6 +14,15 @@ const userController = {
                 password: req.body.password,
                 following: req.body.following
             }
+
+            const email = user.email;
+            const userExists = await User.findOne({ email: email})
+            if(userExists) return res.status(422).json("Usuário já existe.");
+
+            const salt = await bcrypt.genSalt(12);
+            const passwordHash = await bcrypt.hash(user.password, salt);
+            user.password = passwordHash;
+
             await User.create(user);
             return res.status(201).json("Usuário criado com sucesso.");
         } catch (err) {
