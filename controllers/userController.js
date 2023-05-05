@@ -5,7 +5,7 @@ const userController = {
     create: async(req, res) => {
         try {
             const user = {
-                nmUserFull: req.body.nmUserFull,
+                fullNameUser: req.body.fullNameUser,
                 nmUser: req.body.nmUser,
                 photo: req.body.photo,
                 email: req.body.email,
@@ -17,14 +17,14 @@ const userController = {
 
             const email = user.email;
             const userExists = await User.findOne({ email: email})
-            if(userExists) return res.status(422).json("Usuário já existe.");
+            if(userExists) return res.status(422).json({msg:"Usuário já existe."});
 
             const salt = await bcrypt.genSalt(12);
             const passwordHash = await bcrypt.hash(user.password, salt);
             user.password = passwordHash;
 
             await User.create(user);
-            return res.status(201).json("Usuário criado com sucesso.");
+            return res.status(201).json({msg:"Usuário criado com sucesso."});
         } catch (err) {
             return res.json(err);
         }
@@ -34,7 +34,7 @@ const userController = {
             const data = await User.find().populate('following');
             return res.status(200).json(data);
         } catch (err) {
-            return res.json(err);
+            return res.status(503).json({msg:"Serviço indisponível, tente mais tarde."});
         }
     },
     get: async(req, res) => {
@@ -42,7 +42,7 @@ const userController = {
             const id = req.params.id;
             const data = await User.findById(id);
             if(!data) {
-                return res.status(404).json("Usuário não encontrado.");
+                return res.status(404).json({msg:"Usuário não encontrado."});
             }
             return res.status(200).json(data);
         } catch (err) {
@@ -53,7 +53,7 @@ const userController = {
         try {
             const id = req.params.id;
             const data = {
-                nmUsuarioCompleto: req.body.nmUserFull,
+                fullNameUser: req.body.fullNameUser,
                 nmUsuario: req.body.nmUser,
                 photo: req.body.photo,
                 email: req.body.email,
@@ -63,10 +63,10 @@ const userController = {
                 following: req.body.following
             }
             if(!data) {
-                return res.status(404).json("Usuário não encontrado.");
+                return res.status(404).json({msg:"Usuário não encontrado."});
             }
             await User.findByIdAndUpdate(id, data);
-            return res.status(200).json("Usuário atualizado com sucesso.");
+            return res.status(200).json({msg:"Usuário atualizado com sucesso."});
         } catch (err) {
             return res.json(err);
         }
@@ -76,10 +76,10 @@ const userController = {
             const id = req.params.id;
             const data = User.findById(id);
             if(!data) {
-                return res.status(404).json("Usuário não encontrado.");
+                return res.status(404).json({msg:"Usuário não encontrado."});
             }
             await User.findByIdAndDelete(id);
-            return res.status(200).json("Usuário removido com sucesso.");
+            return res.status(200).json({msg:"Usuário removido com sucesso."});
         } catch (err) {
             return res.json(err);
         }

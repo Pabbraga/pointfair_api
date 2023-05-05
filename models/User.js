@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 const { Schema } = mongoose;
 
 const userSchema = new Schema({
-    nmFullUser: {
+    fullNameUser: {
         type: String,
         require: true
     },

@@ -9,18 +9,18 @@ const authController = {
         try {
             const { email, password } = req.body; 
             if(!email) {
-                return res.status(422).json("Preencha o campo de email.");
+                return res.status(422).json({msg:"Preencha o campo de email."});
             }
             if(!password) {
-                return res.status(422).json("Preencha o campo de senha.");
+                return res.status(422).json({msg:"Preencha o campo de senha."});
             }
 
             const user = await User.findOne({ email: email})
-            if(!user) return res.status(404).json("Usuário não encontrado.");
+            if(!user) return res.status(404).json({msg:"Usuário não encontrado."});
 
-            const checkPassword = bcrypt.compare(password, user.password);
+            const checkPassword = await bcrypt.compare(password, user.password);
             if(!checkPassword) {
-                return res.status(422).json("Senha incorreta e/ou inválida.")
+                return res.status(422).json({msg: "Senha incorreta e/ou inválida."});
             }
             
             try {
@@ -31,7 +31,7 @@ const authController = {
                     }, 
                     secret,
                 );
-                return res.status(200).json({token, user});
+                return res.status(200).json({token, user, msg:""});
             } catch (err) {
                 return res.json(err);
             }
