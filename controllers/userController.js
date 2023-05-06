@@ -5,11 +5,11 @@ const userController = {
     create: async(req, res) => {
         try {
             const user = {
-                fullNameUser: req.body.fullNameUser,
-                nmUser: req.body.nmUser,
+                fullName: req.body.fullName,
+                nickname: req.body.nickname,
                 photo: req.body.photo,
                 email: req.body.email,
-                phone: req.body.telefone,
+                phone: req.body.phone,
                 location: req.body.location,
                 password: req.body.password,
                 following: req.body.following
@@ -52,9 +52,9 @@ const userController = {
     update: async(req, res) => {
         try {
             const id = req.params.id;
-            const data = {
-                fullNameUser: req.body.fullNameUser,
-                nmUsuario: req.body.nmUser,
+            const user = {
+                fullName: req.body.fullName,
+                nickname: req.body.nickname,
                 photo: req.body.photo,
                 email: req.body.email,
                 phone: req.body.phone,
@@ -62,10 +62,11 @@ const userController = {
                 password: req.body.password,
                 following: req.body.following
             }
-            if(!data) {
-                return res.status(404).json({msg:"Usuário não encontrado."});
-            }
-            await User.findByIdAndUpdate(id, data);
+
+            const salt = await bcrypt.genSalt(12);
+            const passwordHash = await bcrypt.hash(user.password, salt);
+            user.password = passwordHash;
+            await User.findByIdAndUpdate(id, user);
             return res.status(200).json({msg:"Usuário atualizado com sucesso."});
         } catch (err) {
             return res.json(err);
