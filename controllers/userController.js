@@ -62,10 +62,14 @@ const userController = {
                 password: req.body.password,
                 following: req.body.following
             }
-
-            const salt = await bcrypt.genSalt(12);
-            const passwordHash = await bcrypt.hash(user.password, salt);
-            user.password = passwordHash;
+            
+            if(user.password) {
+                const salt = await bcrypt.genSalt(12);
+                const passwordHash = await bcrypt.hash(user.password, salt);
+                user.password = passwordHash;
+                return;
+            }
+            
             await User.findByIdAndUpdate(id, user);
             return res.status(200).json({msg:"Usuário atualizado com sucesso."});
         } catch (err) {

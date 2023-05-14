@@ -3,11 +3,11 @@ import mongoose from "mongoose";
 const { Schema } = mongoose;
 
 const sellerSchema = new Schema({
-    nmFullSeller: {
+    fullName: {
         type: String,
         require: true
     },
-    nmSeller: {
+    nickname: {
         type: String,
         require: true
     },
@@ -35,10 +35,6 @@ const sellerSchema = new Schema({
         type: String,
         require: true
     },
-    // publishes: [{
-    //     type: mongoose.Schema.Types.ObjectId,
-    //     ref: 'Publish'
-    // }],
     products: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Product',
