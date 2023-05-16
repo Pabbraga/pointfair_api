@@ -12,7 +12,7 @@ const productSchema = new Schema({
         require: true
     },
     image: {
-        type: String,
+        type: Array,
         require: true
     },
     inStock: {

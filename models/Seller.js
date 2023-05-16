@@ -12,7 +12,7 @@ const sellerSchema = new Schema({
         require: true
     },
     photo: {
-        type: String,
+        type: Array,
         require: false
     },
     cnpj: {
