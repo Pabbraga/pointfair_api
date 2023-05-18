@@ -3,10 +3,6 @@ import mongoose from "mongoose";
 const { Schema } = mongoose;
 
 const publicationSchema = new Schema({
-    name: {
-        type: String,
-        require: true
-    },
     description: {
         type: String,
         require: true

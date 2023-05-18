@@ -4,8 +4,8 @@ const sellerController = {
     create: async(req, res) => {
         try {
             const seller = {
-                nmUserFull: req.body.nmSellerFull,
-                nmUser: req.body.nmSellerFull,
+                fullName: req.body.fullName,
+                nickname: req.body.nickname,
                 photo: req.body.photo,
                 email: req.body.email,
                 phone: req.body.phone,
@@ -44,8 +44,8 @@ const sellerController = {
         try {
             const id = req.params.id;
             const data = {
-                nmSellerFull: req.body.nmUsuarioCompleto,
-                nmSeller: req.body.nmUsuario,
+                fullName: req.body.fullName,
+                nickname: req.body.nickname,
                 photo: req.body.photo,
                 email: req.body.email,
                 phone: req.body.telefone,
