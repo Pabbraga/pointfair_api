@@ -10,6 +10,7 @@ const sellerController = {
                 email: req.body.email,
                 phone: req.body.phone,
                 cnpj: req.body.cnpj,
+                location: req.body.location,
                 password: req.body.password,
                 following: req.body.following
             }

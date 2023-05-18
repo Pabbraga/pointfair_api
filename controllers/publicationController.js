@@ -7,7 +7,8 @@ const publicationController = {
                 name: req.body.name,
                 descricao: req.body.descricao,
                 image: req.body.image,
-                inStock: req.body.inStock
+                inStock: req.body.inStock,
+                owner: req.body.owner
             }
             await Publication.create(data);
             return res.status(201).json("Publicação criado com sucesso.");
