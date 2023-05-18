@@ -2,8 +2,8 @@ import mongoose from "mongoose";
 
 const { Schema } = mongoose;
 
-const productSchema = new Schema({
-    nmProduct: {
+const publicationSchema = new Schema({
+    name: {
         type: String,
         require: true
     },
@@ -18,10 +18,15 @@ const productSchema = new Schema({
     inStock: {
         type: Boolean,
         require: true
+    },
+    owner: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Seller',
+        require: false
     }
 }, {timestamps: true}
 );
 
-const Product = mongoose.model("Product", productSchema);
+const Publication = mongoose.model("Publication", publicationSchema);
 
-export { Product, productSchema };
+export { Publication, publicationSchema };

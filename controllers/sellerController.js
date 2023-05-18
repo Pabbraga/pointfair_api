@@ -10,7 +10,6 @@ const sellerController = {
                 email: req.body.email,
                 phone: req.body.phone,
                 cnpj: req.body.cnpj,
-                location: req.body.location,
                 password: req.body.password,
                 following: req.body.following
             }
@@ -22,7 +21,7 @@ const sellerController = {
     },
     getAll: async(_, res) => {
         try {
-            const data = await Seller.find();
+            const data = await Seller.find().populate('location');
             return res.status(200).json(data);
         } catch (err) {
             return res.json(err);

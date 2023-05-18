@@ -1,23 +1,23 @@
-import { Product } from "../models/Product.js";
+import { Publication } from "../models/Publication.js";
 
-const productController = {
+const publicationController = {
     create: async(req, res) => {
         try {
-            const product = {
-                nmProduct: req.body.nmProduto,
+            const data = {
+                name: req.body.name,
                 descricao: req.body.descricao,
                 image: req.body.image,
                 inStock: req.body.inStock
             }
-            await Product.create(product);
-            return res.status(201).json("produto criado com sucesso.");
+            await Publication.create(data);
+            return res.status(201).json("Publicação criado com sucesso.");
         } catch (err) {
             return res.json(err);
         }
     },
     getAll: async(_, res) => {
         try {
-            const data = await Product.find();
+            const data = await Publication.find().populate('owner');
             return res.status(200).json(data);
         } catch (err) {
             return res.json(err);
@@ -26,9 +26,9 @@ const productController = {
     get: async(req, res) => {
         try {
             const id = req.params.id;
-            const data = await Product.findById(id);
+            const data = await Publication.findById(id);
             if(!data) {
-                return res.status(404).json("Produto não encontrado.");
+                return res.status(404).json("Publicação não encontrado.");
             }
             return res.status(200).json(data);
         } catch (err) {
@@ -39,15 +39,15 @@ const productController = {
         try {
             const id = req.params.id;
             const data = {
-                nmProduct: req.body.nmProduto,
+                name: req.body.name,
                 descricao: req.body.descricao,
                 image: req.body.image,
                 inStock: req.body.inStock
             }
             if(!data) {
-                return res.status(404).json("Produto não encontrado.");
+                return res.status(404).json("Publicação não encontrado.");
             }
-            await Product.findByIdAndUpdate(id, data);
+            await Publication.findByIdAndUpdate(id, data);
             return res.status(200).json("Produto atualizado com sucesso.");
         } catch (err) {
             return res.json(err);
@@ -56,11 +56,11 @@ const productController = {
     delete: async(req, res) => {
         try {
             const id = req.params.id;
-            const data = Product.findById(id);
+            const data = Publication.findById(id);
             if(!data) {
                 return res.status(404).json("Produto não encontrado.");
             }
-            await Product.findByIdAndDelete(id);
+            await Publication.findByIdAndDelete(id);
             return res.status(200).json("Produto apagado com sucesso.");
         } catch (err) {
             return res.json(err);
@@ -68,4 +68,4 @@ const productController = {
     }
 };
 
-export default productController;
+export default publicationController;

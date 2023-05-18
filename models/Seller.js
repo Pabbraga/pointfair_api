@@ -32,14 +32,10 @@ const sellerSchema = new Schema({
         require: true
     },
     location: {
-        type: String,
-        require: true
-    },
-    products: [{
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Product',
-        require: false
-    }]
+        ref: "Seller",
+        require: true
+    }
 }, {timestamps: true}
 );
 

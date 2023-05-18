@@ -5,8 +5,8 @@ const pictureController = {
         try {
             const picture = {
                 name: req.body.name,
-                file: req.file,
-                src: file.path,
+                file: req.body.file,
+                src: req.body.src,
             }
             await Picture.create(picture);
             return res.status(201).json("Imagem criada com sucesso.");
