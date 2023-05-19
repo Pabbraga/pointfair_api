@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 const { Schema } = mongoose;
 
 const fairSchema = new Schema({
-    nmFair: {
+    name: {
         type: String,
         require: true
     },
@@ -11,11 +11,11 @@ const fairSchema = new Schema({
         type: String,
         require: false
     },
-    // address: {
-    //     type: mongoose.Schema.Types.ObjectId,
-    //     ref: 'Address',
-    //     require: true
-    // }
+    address: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Address',
+        require: true
+    }
 }, {timestamps: true}
 );
 

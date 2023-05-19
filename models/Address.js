@@ -3,15 +3,15 @@ import mongoose from "mongoose";
 const { Schema } = mongoose;
 
 const addressSchema = new Schema({
-    nmCity: {
+    city: {
         type: String,
         require: true
     },
-    nmDistrict: {
+    district: {
         type: String,
         require: true
     },
-    nmStreet: {
+    street: {
         type: String,
         require: true
     },

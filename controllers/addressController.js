@@ -4,9 +4,9 @@ const addressController = {
     create: async(req, res) => {
         try {
             const address = {
-                nmCity: req.body.nmCity,
-                nmDistrict: req.body.nmDistrict,
-                nmStreet: req.body.nmStreet,
+                city: req.body.city,
+                district: req.body.district,
+                street: req.body.street,
                 complements: req.body.complements
             }
             await Address.create(address);
@@ -39,9 +39,9 @@ const addressController = {
         try {
             const id = req.params.id;
             const data = {
-                nmCity: req.body.nmCity,
-                nmDistrict: req.body.nmDistrict,
-                nmStreet: req.body.nmStreet,
+                city: req.body.city,
+                district: req.body.district,
+                street: req.body.street,
                 complements: req.body.complements
             };
             if(!data) {
