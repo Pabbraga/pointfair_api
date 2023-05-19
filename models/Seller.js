@@ -33,7 +33,7 @@ const sellerSchema = new Schema({
     },
     location: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "Seller",
+        ref: "Address",
         require: true
     }
 }, {timestamps: true}

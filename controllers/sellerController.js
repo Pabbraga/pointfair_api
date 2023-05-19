@@ -14,6 +14,15 @@ const sellerController = {
                 password: req.body.password,
                 following: req.body.following
             }
+
+            const email = seller.email;
+            const sellerExists = await Seller.findOne({ email: email})
+            if(sellerExists) return res.status(422).json({msg:" já existe."});
+
+            const salt = await bcrypt.genSalt(12);
+            const passwordHash = await bcrypt.hash(seller.password, salt);
+            seller.password = passwordHash;
+
             await Seller.create(seller);
             return res.status(201).json("Vendedor criado com sucesso.");
         } catch (err) {
