@@ -4,7 +4,7 @@ const publicationController = {
     create: async(req, res) => {
         try {
             const data = {
-                descricao: req.body.descricao,
+                description: req.body.description,
                 image: req.body.image,
                 inStock: req.body.inStock,
                 owner: req.body.owner
@@ -17,7 +17,7 @@ const publicationController = {
     },
     getAll: async(_, res) => {
         try {
-            const data = await Publication.find().populate('owner');
+            const data = await Publication.find().populate('owner').populate('owner.location');
             return res.status(200).json(data);
         } catch (err) {
             return res.json(err);
