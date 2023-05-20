@@ -7,7 +7,8 @@ const publicationController = {
                 description: req.body.description,
                 image: req.body.image,
                 inStock: req.body.inStock,
-                owner: req.body.owner
+                owner: req.body.owner,
+                location: req.body.location
             }
             await Publication.create(data);
             return res.status(201).json("Publicação criado com sucesso.");
@@ -17,7 +18,10 @@ const publicationController = {
     },
     getAll: async(_, res) => {
         try {
-            const data = await Publication.find().populate('owner.location');
+            const data = await Publication.find().populate({
+                path: 'owner',
+                select: '-_id -cnpj -fullName -password -phone'
+            });
             return res.status(200).json(data);
         } catch (err) {
             return res.json(err);
@@ -41,7 +45,8 @@ const publicationController = {
             const data = {
                 descricao: req.body.descricao,
                 image: req.body.image,
-                inStock: req.body.inStock
+                inStock: req.body.inStock,
+                location: req.body.location
             }
             if(!data) {
                 return res.status(404).json("Publicação não encontrado.");
