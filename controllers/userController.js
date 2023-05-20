@@ -7,6 +7,7 @@ const userController = {
             const user = {
                 fullName: req.body.fullName,
                 nickname: req.body.nickname,
+                isSeller: req.body.isSeller,
                 cnpj: req.body.cnpj,
                 photo: req.body.photo,
                 email: req.body.email,
@@ -23,6 +24,11 @@ const userController = {
             const salt = await bcrypt.genSalt(12);
             const passwordHash = await bcrypt.hash(user.password, salt);
             user.password = passwordHash;
+
+            const cnpj = user.cnpj;
+            if(isSeller && !cnpj) {
+                return res.status(422).json({msg:"CNPJ inválido ou inexistente"});
+            }
 
             await User.create(user);
             return res.status(201).json({msg:"Usuário criado com sucesso."});

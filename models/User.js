@@ -13,8 +13,7 @@ const userSchema = new Schema({
     },
     isSeller: {
         type: Boolean,
-        require: true,
-        default: false
+        require: true
     },
     cnpj: {
         type: String,
