@@ -17,7 +17,7 @@ const publicationController = {
     },
     getAll: async(_, res) => {
         try {
-            const data = await Publication.find().populate('owner').populate('owner.location');
+            const data = await Publication.find().populate('owner.location');
             return res.status(200).json(data);
         } catch (err) {
             return res.json(err);
