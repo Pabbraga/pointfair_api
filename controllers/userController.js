@@ -7,11 +7,12 @@ const userController = {
             const user = {
                 fullName: req.body.fullName,
                 nickname: req.body.nickname,
+                cnpj: req.body.cnpj,
                 photo: req.body.photo,
                 email: req.body.email,
+                password: req.body.password,
                 phone: req.body.phone,
                 location: req.body.location,
-                password: req.body.password,
                 following: req.body.following
             }
 
@@ -57,9 +58,9 @@ const userController = {
                 nickname: req.body.nickname,
                 photo: req.body.photo,
                 email: req.body.email,
+                password: req.body.password,
                 phone: req.body.phone,
                 location: req.body.location,
-                password: req.body.password,
                 following: req.body.following
             }
             

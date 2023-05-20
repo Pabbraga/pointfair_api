@@ -17,7 +17,7 @@ const publicationSchema = new Schema({
     },
     owner: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Seller',
+        ref: 'User',
         require: false
     }
 }, {timestamps: true}

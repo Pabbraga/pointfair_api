@@ -11,19 +11,16 @@ const userSchema = new Schema({
         type: String,
         require: true
     },
-    photo: {
-        type: Array,
+    isSeller: {
+        type: Boolean,
+        require: true,
+        default: false
+    },
+    cnpj: {
+        type: String,
         require: false
     },
     email: {
-        type: String,
-        require: true
-    },
-    phone: {
-        type: String,
-        require: true
-    },
-    location: {
         type: String,
         require: true
     },
@@ -31,9 +28,22 @@ const userSchema = new Schema({
         type: String,
         require: true
     },
+    photo: {
+        type: Array,
+        require: false
+    },
+    phone: {
+        type: String,
+        require: false
+    },
+    location: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Address",
+        require: true
+    },
     following: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "Seller",
+        ref: "User",
         require: false
     }
 }, {timestamps: true}
