@@ -17,7 +17,10 @@ const userController = {
                 following: req.body.following
             }
 
+            const isSeller = user.isSeller;
             const email = user.email;
+            const cnpj = user.cnpj;
+
             const userExists = await User.findOne({ email: email})
             if(userExists) return res.status(422).json({msg:"Usuário já existe."});
 
@@ -25,20 +28,19 @@ const userController = {
             const passwordHash = await bcrypt.hash(user.password, salt);
             user.password = passwordHash;
 
-            const cnpj = user.cnpj;
-            if(isSeller && !cnpj) {
-                return res.status(422).json({msg:"CNPJ inválido ou inexistente"});
-            }
+            const cnpjExists = await User.findOne({ cnpj: cnpj})
+            if(cnpjExists) return res.status(422).json({msg:"CNPJ já cadastrado."});
+            if(isSeller === true && !cnpj) return res.status(422).json({msg:"CNPJ inválido ou inexistente"});
 
             await User.create(user);
             return res.status(201).json({msg:"Usuário criado com sucesso."});
         } catch (err) {
-            return res.json(err);
+            return res.status(503).json({msg:"Serviço indisponível, tente mais tarde."});
         }
     },
     getAll: async(_, res) => {
         try {
-            const data = await User.find().populate('following');
+            const data = await User.find().populate('following').populate('location');
             return res.status(200).json(data);
         } catch (err) {
             return res.status(503).json({msg:"Serviço indisponível, tente mais tarde."});
@@ -53,7 +55,7 @@ const userController = {
             }
             return res.status(200).json(data);
         } catch (err) {
-            return res.json(err);
+            return res.status(503).json({msg:"Serviço indisponível, tente mais tarde."});
         }
     },
     update: async(req, res) => {
@@ -80,7 +82,7 @@ const userController = {
             await User.findByIdAndUpdate(id, user);
             return res.status(200).json({msg:"Usuário atualizado com sucesso."});
         } catch (err) {
-            return res.json(err);
+            return res.status(503).json({msg:"Serviço indisponível, tente mais tarde."});
         }
     },
     delete: async(req, res) => {
@@ -93,7 +95,7 @@ const userController = {
             await User.findByIdAndDelete(id);
             return res.status(200).json({msg:"Usuário removido com sucesso."});
         } catch (err) {
-            return res.json(err);
+            return res.status(503).json({msg:"Serviço indisponível, tente mais tarde."});
         }
     }
 };
