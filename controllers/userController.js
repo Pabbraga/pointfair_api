@@ -28,9 +28,11 @@ const userController = {
             const passwordHash = await bcrypt.hash(user.password, salt);
             user.password = passwordHash;
 
-            const cnpjExists = await User.findOne({ cnpj: cnpj})
-            if(cnpjExists) return res.status(422).json({msg:{cnpj:"CNPJ já cadastrado."}});
             if(isSeller === true && !cnpj) return res.status(422).json({msg:{cnpj:"CNPJ inválido ou inexistente"}});
+            if(cnpj) {
+                const cnpjExists = await User.findOne({ cnpj: cnpj })
+                if(cnpjExists) return res.status(422).json({msg:{cnpj:"CNPJ já cadastrado."}});
+            }
 
             await User.create(user);
             return res.status(201).json({msg:"Usuário criado com sucesso."});

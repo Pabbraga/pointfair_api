@@ -14,6 +14,12 @@ const authController = {
             if(!password) {
                 return res.status(422).json({msg:{password:"Preencha o campo de senha."}});
             }
+            if(!email && !password) {
+                return res.status(422).json({msg: {
+                    email:"Preencha o campo de email.",
+                    password:"Preencha o campo de senha."
+                }});
+            }
 
             const user = await User.findOne({ email: email})
             if(!user) return res.status(404).json({msg:{email:"Usuário não encontrado."}});
