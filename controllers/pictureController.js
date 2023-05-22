@@ -5,7 +5,7 @@ const pictureController = {
         try {
             const picture = {
                 name: req.body.name,
-                file: req.body.file
+                data: req.body.data
             }
             await Picture.create(picture);
             return res.status(201).json("Imagem criada com sucesso.");
@@ -38,7 +38,7 @@ const pictureController = {
             const id = req.params.id;
             const data = {
                 name: req.body.name,
-                src: req.body.src,
+                data: req.body.data,
             }
             if(!data) {
                 return res.status(404).json("Imagem não encontrada.");
