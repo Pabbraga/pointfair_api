@@ -10,10 +10,6 @@ const pictureSchema = new Schema({
     file: {
         type: Array,
         require: true
-    },
-    src: {
-        type: String,
-        require: true
     }
 });
 
