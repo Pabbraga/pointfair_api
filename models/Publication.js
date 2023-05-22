@@ -8,7 +8,7 @@ const publicationSchema = new Schema({
         require: true
     },
     image: {
-        type: Array,
+        type: Blob,
         require: true
     },
     inStock: {

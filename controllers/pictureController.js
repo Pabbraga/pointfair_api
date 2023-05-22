@@ -5,11 +5,10 @@ const pictureController = {
         try {
             const picture = {
                 name: req.body.name,
-                file: req.body.file,
-                src: req.body.src,
+                picture: req.body.picture
             }
             await Picture.create(picture);
-            return res.status(201).json("Imagem criada com sucesso.");
+            return res.status(201).json("Imagem salva com sucesso.");
         } catch (err) {
             return res.json(err);
         }
