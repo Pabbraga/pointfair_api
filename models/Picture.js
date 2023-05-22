@@ -7,8 +7,8 @@ const pictureSchema = new Schema({
         type: String,
         require: true
     },
-    file: {
-        type: Array,
+    data: {
+        type: String,
         require: true
     }
 });
