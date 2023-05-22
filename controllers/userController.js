@@ -21,16 +21,16 @@ const userController = {
             const email = user.email;
             const cnpj = user.cnpj;
 
-            const userExists = await User.findOne({ email: email})
-            if(userExists) return res.status(422).json({msg:"Usuário já existe."});
+            const userExists = await User.findOne({ email: email});
+            if(userExists) return res.status(422).json({msg:{email:"Usuário já existe."}});
 
             const salt = await bcrypt.genSalt(12);
             const passwordHash = await bcrypt.hash(user.password, salt);
             user.password = passwordHash;
 
             const cnpjExists = await User.findOne({ cnpj: cnpj})
-            if(cnpjExists) return res.status(422).json({msg:"CNPJ já cadastrado."});
-            if(isSeller === true && !cnpj) return res.status(422).json({msg:"CNPJ inválido ou inexistente"});
+            if(cnpjExists) return res.status(422).json({msg:{cnpj:"CNPJ já cadastrado."}});
+            if(isSeller === true && !cnpj) return res.status(422).json({msg:{cnpj:"CNPJ inválido ou inexistente"}});
 
             await User.create(user);
             return res.status(201).json({msg:"Usuário criado com sucesso."});
