@@ -8,7 +8,7 @@ const pictureSchema = new Schema({
         require: true
     },
     data: {
-        type: Buffer,
+        type: String,
         require: true
     }
 });
