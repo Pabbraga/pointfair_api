@@ -7,13 +7,9 @@ const pictureSchema = new Schema({
         type: String,
         require: true
     },
-    file: {
-        type: Array,
-        require: true
-    },
     src: {
         type: String,
-        require: true
+        require: false
     }
 
 });

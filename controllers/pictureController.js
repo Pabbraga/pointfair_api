@@ -5,7 +5,6 @@ const pictureController = {
         try {
             const picture = {
                 name: req.body.name,
-                file: req.body.file,
                 src: req.body.src,
             }
             await Picture.create(picture);
@@ -30,22 +29,6 @@ const pictureController = {
                 return res.status(404).json("Imagem não encontrada.");
             }
             return res.status(200).json(data);
-        } catch (err) {
-            return res.json(err);
-        }
-    },
-    update: async(req, res) => {
-        try {
-            const id = req.params.id;
-            const data = {
-                name: req.body.name,
-                src: req.body.src,
-            }
-            if(!data) {
-                return res.status(404).json("Imagem não encontrada.");
-            }
-            await Picture.findByIdAndUpdate(id, data);
-            return res.status(200).json("Image atualizada com sucesso.");
         } catch (err) {
             return res.json(err);
         }
