@@ -11,7 +11,6 @@ const pictureSchema = new Schema({
         type: String,
         require: false
     }
-
 });
 
 const Picture = mongoose.model("Picture", pictureSchema);
