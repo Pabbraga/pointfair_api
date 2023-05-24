@@ -1,6 +1,42 @@
 import { Picture } from "../models/Picture.js";
+import fs from 'fs';
+import { google } from 'googleapis';
+
+const GOOGLE_API_FOLDER_ID = '1z9xjl7CXjt-kL33XOsPnI6gZX20ipsXH'
 
 const pictureController = {
+    upload: async(req, res) => {
+        try {
+            const auth = new google.auth.GoogleAuth({
+                keyFile: '../googledrive.json',
+                scopes: ['https://www.googleapis.com/auth/drive']
+            })
+
+            const driveService = google.drive({
+                version: 'v3',
+                auth
+            })
+
+            const fileMetaData = {
+                'name': req.body.name,
+                'parents': [GOOGLE_API_FOLDER_ID]
+            }
+
+            const media = {
+                MimeType: req.body.type,
+                body: fs.createReadStream(req.body.uri)
+            }
+
+            const response = await driveService.files.create({
+                resource: fileMetaData,
+                media: media,
+                fields: 'id'
+            }) 
+            return response.data.id;
+        } catch (err) {
+            console.log(err);   
+        }
+    },
     create: async(req, res) => {
         try {
             const picture = {

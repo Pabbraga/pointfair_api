@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "pointfair",
+  "private_key_id": "84e71473ef2ca2895cb9aeb6e956fae98f2f516e",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQC5kqy/alZ8uyMR\nvkjKXqlbcDJ/FrOhhhEebExh3TUjL0r/P/xlt3z+KCPj7JEVA92lwkHn8ZNYoeo2\ndmTfcSKcdWcdhOPu+Wb96NxqakgLI8YksfgbJk5EfY5ttNRXOQopdmw8uLE4+Lp8\nmcSfgbQtpKR6EhVTVBS5XNIyZjREKjgFxOecPhRiEKNeIXCWn17LPv5jykBCoAUa\nUMaThgAqyMHtgueJbjvdu86BYTRbtz8l+r+/YPr2Yzhb3ocJxDI1BLlb44jAfT0c\nXV55PozxTWn9wjRA7sF/kJd7+ayX2LSSnFtABQIdjQf7gSgEqVcYcvHzvK77tnm6\n0vvP8iMzAgMBAAECggEAJtnCycZA+hcRpf7Q7XE5ApgwMjQ2Ajx3rAdfTGPL4qRd\njqe+NytdgzYzIV4fF6e6CSBsvNryDq3DQ4iw4KimZtwbbO4r7BWRztmn/61ljNN+\nAaOyvjhcTXF91pDznZkm+/w7d9Dw5W0JWdm1dPFqH94mwxmzFkF1n0MEDKIiEhzq\nkX9Mvco8+GEsVNuqjCelK3iQy6F0ShVVm5Gi2tCrGiDLWCzypmSWbLvVb54aTyz5\na0EwsysS1/OQ6Y0t1kG9tF/8iHeMMR+3rmRtVg2hHKlltBFXEGReeEfuh/xhsW0k\nL6IqnF1Hsf1bxcMh0oo+YNy6y97cyVsi98etk3OQ1QKBgQD43ViG4Ag3kxEjEzya\ne+v/cGgd2ypiRyxWuARyXWQ8sbU0UvDkwtMvvcrIVxADhyB1nPSp3zag5Y1MLbCv\n2/1PAbOB+iVR7EPYfYrEhX8+J4fGaypV+yYM1VytKB9n5ItrN3uVOYCd24QK2WRF\nIFcDfcnqG1ExjwzoaxExbd/eLQKBgQC+5MVpEH1r1xo02PUi1IhqS7QCXd+1Kqxq\n0Kgs6KmdlPjrRyTfdXKEC2AVfA7ctslbyu6O7GZuWMYor9CKz9v9m+b8ziLrPctG\nonWAgLErzHCiePJbre92HqaJR0TvHAPO8/XO9lCFS+6qn9fNfNnq1hgQDZomtNMO\ntKOkPkhC3wKBgBP9M28h74cHOQkoMmX2Li6GSNadE/pw3Q7aGQFWnwaA/50ETHUT\ncQMUq4UL+S1PXTwVL1G1rB2gUokb4mU9tkrySAjYnsbFw21QKCVA08eaRT2avfvK\nAHRnbto5rswZf1lNS4/g3oPPbfuxGmyy/Eo7gExdhVgFtXO1pdvih2jBAoGBAK01\nFO5s+PCFv5CeH2dYIuMYB6ByHw7aRpGw/DercGO8jVOmPQ3JGnw3ehpkc3PPIst4\nSZdDZvnO8RZv2LBrRDhMYn2WaNa8Phq8RBOyMZAFM1oolfebzgCGdSNwmFrBN69r\nauk8U/lu2YLWAFDCbVSIqFLAlNN0FWFthGH95UFPAoGAA/U7i9pdvqUsW7Siqt2R\nG7QfIVFrWaRnhqM9AifLH4UWgqQJIsW36dxJy51lkqgwpK6WjONIBhOTusq6m04/\n8mLFYZen2K96RogCFIM57UpV6Mw1cMWJy9dbg8htzDOeXHGNfgL1HmX+F35vA2Az\nCb7axZ+qHZ7IVUTRwvuOlho=\n-----END PRIVATE KEY-----\n",
+  "client_email": "googledrive@pointfair.iam.gserviceaccount.com",
+  "client_id": "109087787033537651173",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/googledrive%40pointfair.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}
