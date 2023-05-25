@@ -5,7 +5,7 @@ const publicationController = {
         try {
             const data = {
                 description: req.body.description,
-                image: req.body.image,
+                imageUrl: req.body.imageUrl,
                 inStock: req.body.inStock,
                 owner: req.body.owner,
                 location: req.body.location

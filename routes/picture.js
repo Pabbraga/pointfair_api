@@ -1,11 +1,10 @@
 import express from "express";
 import pictureController from "../controllers/pictureController.js";
+import upload from "../config/multer.js";
 
 const router = express.Router();
 
-router.post('/upload', pictureController.upload);
-router.post('/', pictureController.create);
-router.get('/', pictureController.getAll);
+router.post('/upload', upload.single("file"), pictureController.upload);
 router.get('/:id', pictureController.get);
 router.delete('/:id', pictureController.delete);
 

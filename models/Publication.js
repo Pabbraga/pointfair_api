@@ -5,15 +5,15 @@ const { Schema } = mongoose;
 const publicationSchema = new Schema({
     description: {
         type: String,
-        require: true
+        require: false
     },
-    image: {
-        type: Array,
-        require: true
+    imageUrl: {
+        type: String,
+        require: false
     },
     inStock: {
         type: Boolean,
-        require: true
+        require: false
     },
     owner: {
         type: mongoose.Schema.Types.ObjectId,

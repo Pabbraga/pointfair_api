@@ -2,29 +2,38 @@ import { Picture } from "../models/Picture.js";
 import fs from 'fs';
 import { google } from 'googleapis';
 
-const GOOGLE_API_FOLDER_ID = '1z9xjl7CXjt-kL33XOsPnI6gZX20ipsXH'
+const GOOGLE_API_FOLDER_ID = '1z9xjl7CXjt-kL33XOsPnI6gZX20ipsXH';
 
 const pictureController = {
     upload: async(req, res) => {
+        const {name} = req.body;
+
+        const file = req.file;
+
+        const picture = {
+            name,
+            src: file.path
+        };
+        const filename = picture.src.split('\\')[1];
         try {
             const auth = new google.auth.GoogleAuth({
-                keyFile: '../googledrive.json',
+                keyFile: './googledrive.json',
                 scopes: ['https://www.googleapis.com/auth/drive']
-            })
+            });
 
             const driveService = google.drive({
                 version: 'v3',
                 auth
-            })
+            });
 
             const fileMetaData = {
-                'name': req.body.name,
+                'name': filename,
                 'parents': [GOOGLE_API_FOLDER_ID]
             }
 
             const media = {
                 MimeType: req.body.type,
-                body: fs.createReadStream(req.body.uri)
+                body: fs.createReadStream('./uploads/'+ filename)
             }
 
             const response = await driveService.files.create({
@@ -32,29 +41,9 @@ const pictureController = {
                 media: media,
                 fields: 'id'
             }) 
-            return response.data.id;
+            return res.status(201).json({"imageUrl": response.data.id});
         } catch (err) {
             console.log(err);   
-        }
-    },
-    create: async(req, res) => {
-        try {
-            const picture = {
-                name: req.body.name,
-                src: req.body.src,
-            }
-            await Picture.create(picture);
-            return res.status(201).json("Imagem criada com sucesso.");
-        } catch (err) {
-            return res.json(err);
-        }
-    },
-    getAll: async(_, res) => {
-        try {
-            const data = await Picture.find();
-            return res.status(200).json(data);
-        } catch (err) {
-            return res.json(err);
         }
     },
     get: async(req, res) => {
