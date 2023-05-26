@@ -1,4 +1,3 @@
-import { Picture } from "../models/Picture.js";
 import fs from 'fs';
 import { google } from 'googleapis';
 
