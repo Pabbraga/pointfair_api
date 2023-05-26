@@ -1,6 +1,46 @@
 import bcrypt from 'bcrypt';
 import { User } from "../models/User.js";
 
+function validarCNPJ(cnpj) {
+    cnpj = cnpj.replace(/[^\d]+/g, ''); //Remove caracteres ñ numerico
+    if (cnpj.length !== 14) {
+        return false; // CNPJ deve ter 14 dígitos
+    }
+   
+    // Verifica se todos os dígitos são iguais
+    if (/^(\d)\1+$/.test(cnpj)) {
+        return false;
+    }
+
+    // Validação do primeiro dígito verificador
+    let sum = 0;
+    let weight = 2;
+    for (let i = 11; i >= 0; i--) {
+        sum += parseInt(cnpj.charAt(i)) * weight;
+        weight = (weight + 1) % 9 || 2;
+    }
+    
+    let digit = sum % 11 < 2 ? 0 : 11 - (sum % 11);
+    if (parseInt(cnpj.charAt(12)) !== digit) {
+        return false;
+    }
+
+    // Validação do segundo dígito verificador
+    sum = 0;
+    weight = 2;
+    for (let i = 12; i >= 0; i--) {
+        sum += parseInt(cnpj.charAt(i)) * weight;
+        weight = (weight + 1) % 9 || 2;
+    }
+
+    digit = sum % 11 < 2 ? 0 : 11 - (sum % 11);
+    if (parseInt(cnpj.charAt(13)) !== digit) {
+        return false;
+    }
+    
+    return true;
+}
+
 const userController = {
     create: async(req, res) => {
         try {
@@ -29,6 +69,7 @@ const userController = {
             user.password = passwordHash;
 
             if(isSeller === true && !cnpj) return res.status(422).json({msg:{cnpj:"CNPJ inválido ou inexistente"}});
+            if(cnpj && !validarCNPJ(cnpj)) return res.status(422).json({ msg: { cnpj: "CNPJ inválido" } });
             if(cnpj) {
                 const cnpjExists = await User.findOne({ cnpj: cnpj })
                 if(cnpjExists) return res.status(422).json({msg:{cnpj:"CNPJ já cadastrado."}});
@@ -102,4 +143,4 @@ const userController = {
     }
 };
 
-export default userController; 
+export default userController;
