@@ -13,7 +13,7 @@ const addressSchema = new Schema({
     },
     street: {
         type: String,
-        require: true
+        require: false
     },
     complements: {
         type: String,

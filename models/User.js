@@ -40,6 +40,11 @@ const userSchema = new Schema({
         ref: "Address",
         require: true
     },
+    fair: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Fair",
+        require: false
+    },
     following: {
         type: [mongoose.Schema.Types.ObjectId],
         ref: "User",

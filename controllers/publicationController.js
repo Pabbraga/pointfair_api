@@ -20,7 +20,7 @@ const publicationController = {
         try {
             const data = await Publication.find().populate({
                 path: 'owner',
-                select: '-cnpj -fullName -password -phone -location'
+                select: '-cnpj -fullName -password -phone -location -fair'
             });
             return res.status(200).json(data);
         } catch (err) {
