@@ -2,11 +2,11 @@ import bcrypt from 'bcrypt';
 import { User } from "../models/User.js";
 
 function validarCNPJ(cnpj) {
-    cnpj = cnpj.replace(/[^\d]+/g, ''); //Remove caracteres ñ numerico
+    cnpj = cnpj.replace(/[^\d]+/g, ''); // Remove caracteres não numéricos
     if (cnpj.length !== 14) {
         return false; // CNPJ deve ter 14 dígitos
     }
-   
+
     // Verifica se todos os dígitos são iguais
     if (/^(\d)\1+$/.test(cnpj)) {
         return false;
@@ -14,12 +14,12 @@ function validarCNPJ(cnpj) {
 
     // Validação do primeiro dígito verificador
     let sum = 0;
-    let weight = 2;
-    for (let i = 11; i >= 0; i--) {
+    let weight = 5;
+    for (let i = 0; i < 12; i++) {
         sum += parseInt(cnpj.charAt(i)) * weight;
-        weight = (weight + 1) % 9 || 2;
+        weight = (weight === 2) ? 9 : weight - 1;
     }
-    
+
     let digit = sum % 11 < 2 ? 0 : 11 - (sum % 11);
     if (parseInt(cnpj.charAt(12)) !== digit) {
         return false;
@@ -27,20 +27,19 @@ function validarCNPJ(cnpj) {
 
     // Validação do segundo dígito verificador
     sum = 0;
-    weight = 2;
-    for (let i = 12; i >= 0; i--) {
+    weight = 6;
+    for (let i = 0; i < 13; i++) {
         sum += parseInt(cnpj.charAt(i)) * weight;
-        weight = (weight + 1) % 9 || 2;
+        weight = (weight === 2) ? 9 : weight - 1;
     }
 
     digit = sum % 11 < 2 ? 0 : 11 - (sum % 11);
     if (parseInt(cnpj.charAt(13)) !== digit) {
         return false;
     }
-    
+
     return true;
 }
-
 const userController = {
     create: async(req, res) => {
         try {
