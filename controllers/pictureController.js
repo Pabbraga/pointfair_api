@@ -32,7 +32,7 @@ const pictureController = {
 
             const media = {
                 MimeType: req.body.type,
-                body: fs.createReadStream('../temp/uploads/'+ filename)
+                body: fs.createReadStream(filename)
             }
 
             const response = await driveService.files.create({
