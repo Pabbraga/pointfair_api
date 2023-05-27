@@ -86,7 +86,7 @@ const userController = {
             const data = await User.find().populate('following').populate('location');
             return res.status(200).json(data);
         } catch (err) {
-            return res.status(503).json({msg:"Serviço indisponível, tente mais tarde."});
+            return res.status(503).json({err});
         }
     },
     get: async(req, res) => {
