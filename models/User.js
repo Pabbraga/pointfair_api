@@ -36,8 +36,7 @@ const userSchema = new Schema({
         require: false
     },
     location: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Address",
+        type: Array,
         require: true
     },
     fair: {

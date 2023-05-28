@@ -53,7 +53,10 @@ const userController = {
                 password: req.body.password,
                 phone: req.body.phone,
                 fair: req.body.fair,
-                location: req.body.location,
+                location: [
+                    req.body.city,
+                    req.body.district
+                ],
                 following: req.body.following
             }
 
@@ -112,7 +115,10 @@ const userController = {
                 password: req.body.password,
                 phone: req.body.phone,
                 fair: req.body.fair,
-                location: req.body.location,
+                location: [
+                    req.body.city,
+                    req.body.district
+                ],
                 following: req.body.following
             }
             
