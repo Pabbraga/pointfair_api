@@ -36,7 +36,7 @@ const userSchema = new Schema({
         require: false
     },
     location: {
-        type: Array,
+        type: Object,
         require: true
     },
     fair: {
