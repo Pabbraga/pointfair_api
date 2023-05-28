@@ -48,21 +48,20 @@ const userController = {
                 nickname: req.body.nickname,
                 isSeller: req.body.isSeller,
                 cnpj: req.body.cnpj,
-                photo: req.body.photo,
+                photoUrl: req.body.photoUrl,
                 email: req.body.email,
                 password: req.body.password,
                 phone: req.body.phone,
                 fair: req.body.fair,
-                location: [
-                    req.body.city,
-                    req.body.district
-                ],
+                location: req.body.location,
                 following: req.body.following
             }
 
             const isSeller = user.isSeller;
             const email = user.email;
             const cnpj = user.cnpj;
+
+            if(!email) return res.status(422).json({msg:{email:"Insira seu Email."}})
 
             const userExists = await User.findOne({ email: email});
             if(userExists) return res.status(422).json({msg:{email:"Usuário já existe."}});
