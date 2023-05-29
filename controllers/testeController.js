@@ -1,5 +1,5 @@
 const TesteController = {
-    create: async(req, res) => {
+    teste: async(req, res) => {
         try {
             return res.status(201).json("Teste.");
         } catch (err) {
