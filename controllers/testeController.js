@@ -7,3 +7,5 @@ const TesteController = {
         }
     },
 }
+
+export default TesteController;
