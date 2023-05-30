@@ -16,6 +16,8 @@ const pictureController = {
         const filename = picture.src.split('\\')[1];
         try {
             console.log(filename);
+            console.log(picture.name);
+            console.log(picture.src);
             const auth = new google.auth.GoogleAuth({
                 keyFile: './googledrive.json',
                 scopes: ['https://www.googleapis.com/auth/drive']
