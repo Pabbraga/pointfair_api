@@ -5,19 +5,23 @@ const { Schema } = mongoose;
 const publicationSchema = new Schema({
     description: {
         type: String,
-        require: false
+        require: true
     },
     imageUrl: {
         type: String,
-        require: false
+        require: true
     },
     inStock: {
         type: Boolean,
-        require: false
+        require: true
     },
     owner: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
+        require: true
+    },
+    location: {
+        type: Object,
         require: false
     }
 }, {timestamps: true}

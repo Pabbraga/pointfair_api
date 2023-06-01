@@ -18,6 +18,14 @@ const addressSchema = new Schema({
     complements: {
         type: String,
         require: false
+    },
+    lagitude: {
+        type: String,
+        require: false
+    },
+    longitude: {
+        type: String,
+        require: false
     }
 }, {timestamps: true}
 );

@@ -103,6 +103,16 @@ const userController = {
             return res.status(503).json({msg:"Serviço indisponível, tente mais tarde."});
         }
     },
+    search: async(req, res) => {
+        try {
+            const search = req.body.search;
+            const data = await User.find({nickname: {$regex: `^${search}`, $options: 'i'}});
+
+            return res.status(200).json(data);
+        } catch (err) { 
+            return res.status(404).json({msg:"Nenhum usuário foi encontrado."});
+        }
+    },
     update: async(req, res) => {
         try {
             const id = req.params.id;
