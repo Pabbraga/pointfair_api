@@ -13,7 +13,7 @@ const pictureController = {
             name,
             src: file.path
         };
-        const filename = picture.src.split('\\')[1];
+        const filename = picture.src.split('/')[1];
         try {
             const auth = new google.auth.GoogleAuth({
                 keyFile: './googledrive.json',
@@ -32,7 +32,7 @@ const pictureController = {
 
             const media = {
                 MimeType: req.body.type,
-                body: fs.createReadStream('./uploads/'+ filename)
+                body: fs.createReadStream('uploads/'+ filename)
             }
 
             const response = await driveService.files.create({
