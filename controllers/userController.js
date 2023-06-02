@@ -106,11 +106,13 @@ const userController = {
     search: async(req, res) => {
         try {
             const search = req.body.search;
-            const data = await User.find({nickname: {$regex: `^${search}`, $options: 'i'}});
-
+            const data = await User.find({nickname: {$regex: `^${search}`, $options: 'im'}});
+            if(!data) {
+                return res.status(404).json({msg:"Nenhum usuário foi encontrado."})
+            }
             return res.status(200).json(data);
         } catch (err) { 
-            return res.status(404).json({msg:"Nenhum usuário foi encontrado."});
+            return res.status(404).json({msg:"Serviço indisponível, tente mais tarde."});
         }
     },
     update: async(req, res) => {
