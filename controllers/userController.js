@@ -53,8 +53,7 @@ const userController = {
                 password: req.body.password,
                 phone: req.body.phone,
                 fair: req.body.fair,
-                location: req.body.location,
-                following: req.body.following
+                location: req.body.location
             }
 
             const isSeller = user.isSeller;

@@ -11,10 +11,9 @@ const fairSchema = new Schema({
         type: String,
         require: false
     },
-    address: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Address',
-        require: true
+    location: {
+        type: Object,
+        require: false
     }
 }, {timestamps: true}
 );
