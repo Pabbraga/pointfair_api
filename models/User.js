@@ -37,7 +37,7 @@ const userSchema = new Schema({
     },
     location: {
         type: Object,
-        require: true
+        require: false
     },
     fair: {
         type: mongoose.Schema.Types.ObjectId,

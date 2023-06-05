@@ -11,7 +11,7 @@ const publicationController = {
                 location: req.body.location
             }
             await Publication.create(data);
-            return res.status(201).json("Publicação criado com sucesso.");
+            return res.status(201).json({msg:"Publicação criado com sucesso."});
         } catch (err) {
             return res.json(err);
         }

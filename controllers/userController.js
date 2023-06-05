@@ -94,7 +94,7 @@ const userController = {
     get: async(req, res) => {
         try {
             const id = req.params.id;
-            const data = await User.findById(id);
+            const data = await User.findById(id).populate('following').populate('fair');
             if(!data) {
                 return res.status(404).json({msg:"Usuário não encontrado."});
             }
