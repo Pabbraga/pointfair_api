@@ -120,7 +120,7 @@ const userController = {
             const user = {
                 fullName: req.body.fullName,
                 nickname: req.body.nickname,
-                photo: req.body.photo,
+                photoUrl: req.body.photoUrl,
                 email: req.body.email,
                 password: req.body.password,
                 phone: req.body.phone,
