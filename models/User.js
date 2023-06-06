@@ -31,6 +31,10 @@ const userSchema = new Schema({
         type: String,
         require: false
     },
+    description: {
+        type: String,
+        require: false
+    },
     phone: {
         type: String,
         require: false

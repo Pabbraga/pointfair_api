@@ -114,6 +114,23 @@ const userController = {
             return res.status(404).json({msg:"Serviço indisponível, tente mais tarde."});
         }
     },
+    updateProfile: async(req, res) => {
+        try {
+            const id = req.params.id;
+            const user = {
+                nickname: req.body.nickname,
+                photoUrl: req.body.photoUrl,
+                description: req.body.description,
+            }
+            if(!user.nickname) {
+                return res.status(422).json({msg:"Preencha o campo de apelido de usuário."})
+            }
+            await User.findByIdAndUpdate(id, user);
+            return res.status(200).json({msg:"Usuário atualizado com sucesso."});
+        } catch (err) {
+            return res.status(503).json({msg:"Serviço indisponível, tente mais tarde."});
+        }
+    },
     update: async(req, res) => {
         try {
             const id = req.params.id;

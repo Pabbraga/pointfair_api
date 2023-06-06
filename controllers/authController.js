@@ -7,7 +7,21 @@ dotenv.config();
 const authController = {
     login: async(req, res) => {
         try {
-            const { email, password } = req.body; 
+            const { email, password, signed } = req.body;
+            
+            if(signed) {
+                const user = await User.findOne({ email: email});
+                if(!user) return res.status(404).json({msg:{email:"Usuário não encontrado."}});
+                const secret = process.env.SECRET;
+                const token = jwt.sign(
+                    {
+                        id: user._id,
+                    }, 
+                    secret,
+                );
+                return res.status(200).json({token, user, msg:""});
+            }
+            
             if(!email) {
                 return res.status(422).json({msg:{email:"Preencha o campo de email."}});
             }
@@ -39,7 +53,7 @@ const authController = {
                 );
                 return res.status(200).json({token, user, msg:""});
             } catch (err) {
-                return res.json(err);
+                return console.log(err);
             }
         } catch (err) {
             return res.json(err);
