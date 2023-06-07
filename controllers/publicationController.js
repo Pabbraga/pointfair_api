@@ -21,7 +21,7 @@ const publicationController = {
             const data = await Publication.find().populate({
                 path: 'owner',
                 select: '-cnpj -fullName -password -phone -location -fair'
-            });
+            }).sort({createdAt: 'desc'});
             return res.status(200).json(data);
         } catch (err) {
             return res.json(err);
