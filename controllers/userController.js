@@ -126,7 +126,7 @@ const userController = {
                 return res.status(422).json({msg:"Preencha o campo de apelido de usuário."})
             }
             await User.findByIdAndUpdate(id, user);
-            return res.status(200).json({msg:"Usuário atualizado com sucesso."});
+            return res.status(204).json({msg:"Usuário atualizado com sucesso."});
         } catch (err) {
             return res.status(503).json({msg:"Serviço indisponível, tente mais tarde."});
         }
@@ -146,7 +146,6 @@ const userController = {
                     req.body.city,
                     req.body.district
                 ],
-                following: req.body.following
             }
             
             if(user.password) {
@@ -157,7 +156,7 @@ const userController = {
             }
             
             await User.findByIdAndUpdate(id, user);
-            return res.status(200).json({msg:"Usuário atualizado com sucesso."});
+            return res.status(204).json({msg:"Usuário atualizado com sucesso."});
         } catch (err) {
             return res.status(503).json({msg:"Serviço indisponível, tente mais tarde."});
         }
@@ -170,7 +169,7 @@ const userController = {
                 return res.status(404).json({msg:"Usuário não encontrado."});
             }
             await User.findByIdAndDelete(id);
-            return res.status(200).json({msg:"Usuário removido com sucesso."});
+            return res.status(204).json({msg:"Usuário removido com sucesso."});
         } catch (err) {
             return res.status(503).json({msg:"Serviço indisponível, tente mais tarde."});
         }
