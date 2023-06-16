@@ -1,5 +1,6 @@
 import fs from 'fs';
 import { google } from 'googleapis';
+import googledrive from '../googledrive';
 
 const GOOGLE_API_FOLDER_ID = '1z9xjl7CXjt-kL33XOsPnI6gZX20ipsXH';
 
@@ -16,7 +17,7 @@ const pictureController = {
         const filename = picture.src.split('/')[1];
         try {
             const auth = new google.auth.GoogleAuth({
-                keyFile: './googledrive.js',
+                keyFile: googledrive,
                 scopes: ['https://www.googleapis.com/auth/drive']
             });
 
