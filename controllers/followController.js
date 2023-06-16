@@ -11,7 +11,7 @@ const followController = {
             user.following.push(followingId);
 
             await User.findByIdAndUpdate(id, user);
-            return res.status(204).json({msg:"Seguindo."});
+            return res.status(201).json({msg:"Seguindo."});
         } catch (err) {
             console.log(err);
             return res.status(503).json({msg:"Serviço indisponível, tente mais tarde."});
@@ -31,7 +31,7 @@ const followController = {
             }
             
             await User.findByIdAndUpdate(id, user);
-            return res.status(204).json({msg:"Deixou de seguir."});
+            return res.status(201).json({msg:"Deixou de seguir."});
         } catch (err) {
             console.log(err);
             return res.status(503).json({msg:"Serviço indisponível, tente mais tarde."});
