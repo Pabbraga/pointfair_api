@@ -1,6 +1,5 @@
 import fs from 'fs';
 import { google } from 'googleapis';
-import googledrive from '../googledrive.js';
 
 const GOOGLE_API_FOLDER_ID = '1z9xjl7CXjt-kL33XOsPnI6gZX20ipsXH';
 
