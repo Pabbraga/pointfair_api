@@ -16,6 +16,9 @@ const publicationController = {
             if(data.imageUrl) {
                 return res.status(403).json("Imagem não encontrada")
             }
+            if(!data) {
+                return res.status(503).json("Ocorreu um erro inesperado")
+            }
             return res.status(201).json("Publicação criado com sucesso");
         } catch (err) {
             return res.json(err);
