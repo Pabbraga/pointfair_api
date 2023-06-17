@@ -4,9 +4,11 @@ const publicationController = {
     create: async(req, res) => {
         try {
             const data = {
+                name: req.body.name,
                 description: req.body.description,
                 imageUrl: req.body.imageUrl,
                 inStock: req.body.inStock,
+                quantity: req.body.quantity,
                 owner: req.body.owner,
                 location: req.body.location
             }
@@ -54,9 +56,11 @@ const publicationController = {
         try {
             const id = req.params.id;
             const data = {
+                name: req.body.name,
                 descricao: req.body.descricao,
                 image: req.body.image,
                 inStock: req.body.inStock,
+                quantity: req.body.quantity,
                 location: req.body.location
             }
 

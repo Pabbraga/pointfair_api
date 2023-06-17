@@ -3,29 +3,36 @@ import mongoose from "mongoose";
 const { Schema } = mongoose;
 
 const publicationSchema = new Schema({
+    name: {
+        type: String,
+        required: true
+    },
     description: {
         type: String,
-        require: true
+        required: true
     },
     imageUrl: {
         type: String,
-        require: true
+        required: true
     },
     inStock: {
         type: Boolean,
-        require: true
+        required: true
+    },
+    quantity: {
+        type: Number,
+        required: true
     },
     owner: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
-        require: true
+        required: true
     },
     location: {
         type: Object,
-        require: false
+        required: false
     }
-}, {timestamps: true}
-);
+}, { timestamps: true });
 
 const Publication = mongoose.model("Publication", publicationSchema);
 
