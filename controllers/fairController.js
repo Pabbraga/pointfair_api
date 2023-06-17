@@ -25,11 +25,11 @@ const fairController = {
     get: async(req, res) => {
         try {
             const id = req.params.id;
-            const data = await Fair.findById(id);
-            if(!data) {
+            const fairExists = await Fair.findById(id);
+            if(!fairExists) {
                 return res.status(404).json("Feira não encontrado.");
             }
-            return res.status(200).json(data);
+            return res.status(201).json(data);
         } catch (err) {
             return res.json(err);
         }
@@ -40,11 +40,12 @@ const fairController = {
             const data = {
                 nmFeira: req.body.nmFeira,
             }
-            if(!data) {
+            const fairExists = await Fair.findById(id);
+            if(!fairExists) {
                 return res.status(404).json("Feira não encontrado.");
             }
             await Fair.findByIdAndUpdate(id, data);
-            return res.status(200).json("Feira atualizado com sucesso.");
+            return res.status(201).json("Feira atualizado com sucesso.");
         } catch (err) {
             return res.json(err);
         }
@@ -52,8 +53,8 @@ const fairController = {
     delete: async(req, res) => {
         try {
             const id = req.params.id;
-            const data = Fair.findById(id);
-            if(!data) {
+            const fairExists = await Fair.findById(id);
+            if(!fairExists) {
                 return res.status(404).json("Feira não encontrado.");
             }
             await Fair.findByIdAndDelete(id);

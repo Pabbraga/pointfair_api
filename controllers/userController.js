@@ -60,26 +60,26 @@ const userController = {
             const email = user.email;
             const cnpj = user.cnpj;
 
-            if(!email) return res.status(422).json({msg:"Insira seu Email."})
+            if(!email) return res.status(422).json("Insira seu Email")
 
             const userExists = await User.findOne({email: email});
-            if(userExists) return res.status(409).json({msg:"Usuário já existe."});
+            if(userExists) return res.status(409).json("Usuário já existe");
 
             const salt = await bcrypt.genSalt(12);
             const passwordHash = await bcrypt.hash(user.password, salt);
             user.password = passwordHash;
 
-            if(isSeller === true && !cnpj) return res.status(422).json({msg:"CNPJ inválido ou inexistente"});
-            if(cnpj && !validarCNPJ(cnpj)) return res.status(422).json({msg: "CNPJ inválido" });
+            if(isSeller === true && !cnpj) return res.status(422).json("CNPJ inválido ou inexistente");
+            if(cnpj && !validarCNPJ(cnpj)) return res.status(422).json( "CNPJ inválido" );
             if(cnpj) {
                 const cnpjExists = await User.findOne({cnpj:cnpj});
-                if(cnpjExists) return res.status(422).json({msg:"CNPJ já cadastrado."});
+                if(cnpjExists) return res.status(422).json("CNPJ já cadastrado.");
             }
 
             await User.create(user);
-            return res.status(201).json({msg:"Usuário criado com sucesso."});
+            return res.status(201).json("Usuário criado com sucesso");
         } catch (err) {
-            return res.status(503).json({msg:"Serviço indisponível, tente mais tarde."});
+            return res.status(503).json("Serviço indisponível, tente mais tarde");
         }
     },
     getAll: async(_, res) => {
@@ -95,11 +95,11 @@ const userController = {
             const id = req.params.id;
             const data = await User.findById(id).populate('following').populate('fair');
             if(!data) {
-                return res.status(404).json({msg:"Usuário não encontrado."});
+                return res.status(404).json("Usuário não encontrado");
             }
             return res.status(200).json(data);
         } catch (err) {
-            return res.status(503).json({msg:"Serviço indisponível, tente mais tarde."});
+            return res.status(503).json("Serviço indisponível, tente mais tarde.");
         }
     },
     search: async(req, res) => {
@@ -107,11 +107,11 @@ const userController = {
             const search = req.params.search;
             const data = await User.find({nickname: {$regex: `^${search}`, $options: 'im'}});
             if(!data) {
-                return res.status(404).json({msg:"Nenhum usuário foi encontrado."})
+                return res.status(404).json("Nenhum usuário foi encontrado.")
             }
             return res.status(200).json(data);
         } catch (err) { 
-            return res.status(404).json({msg:"Serviço indisponível, tente mais tarde."});
+            return res.status(404).json("Serviço indisponível, tente mais tarde.");
         }
     },
     updateProfile: async(req, res) => {
@@ -123,12 +123,12 @@ const userController = {
                 description: req.body.description,
             }
             if(!user.nickname) {
-                return res.status(422).json({msg:"Preencha o campo de apelido de usuário."})
+                return res.status(422).json("Preencha o campo de apelido de usuário.")
             }
             await User.findByIdAndUpdate(id, user);
-            return res.status(201).json({msg:"Usuário atualizado com sucesso."});
+            return res.status(201).json("Usuário atualizado com sucesso.");
         } catch (err) {
-            return res.status(503).json({msg:"Serviço indisponível, tente mais tarde."});
+            return res.status(503).json("Serviço indisponível, tente mais tarde.");
         }
     },
     update: async(req, res) => {
@@ -156,9 +156,9 @@ const userController = {
             }
             
             await User.findByIdAndUpdate(id, user);
-            return res.status(201).json({msg:"Usuário atualizado com sucesso."});
+            return res.status(201).json("Usuário atualizado com sucesso.");
         } catch (err) {
-            return res.status(503).json({msg:"Serviço indisponível, tente mais tarde."});
+            return res.status(503).json("Serviço indisponível, tente mais tarde.");
         }
     },
     delete: async(req, res) => {
@@ -166,12 +166,12 @@ const userController = {
             const id = req.params.id;
             const data = User.findById(id);
             if(!data) {
-                return res.status(404).json({msg:"Usuário não encontrado."});
+                return res.status(404).json("Usuário não encontrado.");
             }
             await User.findByIdAndDelete(id);
-            return res.status(201).json({msg:"Usuário removido com sucesso."});
+            return res.status(201).json("Usuário removido com sucesso.");
         } catch (err) {
-            return res.status(503).json({msg:"Serviço indisponível, tente mais tarde."});
+            return res.status(503).json("Serviço indisponível, tente mais tarde.");
         }
     }
 };

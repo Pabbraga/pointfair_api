@@ -11,7 +11,10 @@ const publicationController = {
                 location: req.body.location
             }
             await Publication.create(data);
-            return res.status(201).json({msg:"Publicação criado com sucesso."});
+            if(data.imageUrl) {
+                return res.status(403).json("Imagem não encontrada")
+            }
+            return res.status(201).json("Publicação criado com sucesso");
         } catch (err) {
             return res.json(err);
         }
@@ -22,6 +25,11 @@ const publicationController = {
                 path: 'owner',
                 select: '-cnpj -fullName -password -phone -location -fair'
             }).sort({createdAt: 'desc'});
+            
+            if(!data) {
+                return res.status(503).json("Ocorreu um erro inesperado")
+            }
+
             return res.status(200).json(data);
         } catch (err) {
             return res.json(err);
@@ -31,9 +39,12 @@ const publicationController = {
         try {
             const id = req.params.id;
             const data = await Publication.findById(id);
-            if(!data) {
-                return res.status(404).json("Publicação não encontrado.");
+
+            const publicationExists = await Publication.findById(id);
+            if(!publicationExists) {
+                return res.status(404).json("Publicação não encontrada");
             }
+
             return res.status(200).json(data);
         } catch (err) {
             return res.json(err);
@@ -48,11 +59,14 @@ const publicationController = {
                 inStock: req.body.inStock,
                 location: req.body.location
             }
-            if(!data) {
-                return res.status(404).json("Publicação não encontrado.");
+
+            const publicationExists = await Publication.findById(id);
+            if(!publicationExists) {
+                return res.status(404).json("Publicação não encontrada");
             }
+
             await Publication.findByIdAndUpdate(id, data);
-            return res.status(200).json("Produto atualizado com sucesso.");
+            return res.status(200).json("Produto atualizado com sucesso");
         } catch (err) {
             return res.json(err);
         }
@@ -60,12 +74,14 @@ const publicationController = {
     delete: async(req, res) => {
         try {
             const id = req.params.id;
-            const data = Publication.findById(id);
-            if(!data) {
-                return res.status(404).json("Produto não encontrado.");
+
+            const publicationExists = await Publication.findById(id);
+            if(!publicationExists) {
+                return res.status(404).json("Publicação não encontrada");
             }
+
             await Publication.findByIdAndDelete(id);
-            return res.status(200).json("Produto apagado com sucesso.");
+            return res.status(200).json("Produto apagado com sucesso");
         } catch (err) {
             return res.json(err);
         }
