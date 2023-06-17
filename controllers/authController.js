@@ -11,7 +11,6 @@ const authController = {
             
             if(signed) {
                 const user = await User.findOne({ email: email});
-                if(!user) return res.status(404).json({msg:{email:"Usuário não encontrado."}});
                 const secret = process.env.SECRET;
                 const token = jwt.sign(
                     {

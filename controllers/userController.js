@@ -60,20 +60,20 @@ const userController = {
             const email = user.email;
             const cnpj = user.cnpj;
 
-            if(!email) return res.status(422).json({msg:{email:"Insira seu Email."}})
+            if(!email) return res.status(422).json({msg:"Insira seu Email."})
 
-            const userExists = await User.findOne({ email: email});
-            if(userExists) return res.status(422).json({msg:{email:"Usuário já existe."}});
+            const userExists = await User.findOne({email: email});
+            if(userExists) return res.status(409).json({msg:"Usuário já existe."});
 
             const salt = await bcrypt.genSalt(12);
             const passwordHash = await bcrypt.hash(user.password, salt);
             user.password = passwordHash;
 
-            if(isSeller === true && !cnpj) return res.status(422).json({msg:{cnpj:"CNPJ inválido ou inexistente"}});
-            if(cnpj && !validarCNPJ(cnpj)) return res.status(422).json({ msg: { cnpj: "CNPJ inválido" } });
+            if(isSeller === true && !cnpj) return res.status(422).json({msg:"CNPJ inválido ou inexistente"});
+            if(cnpj && !validarCNPJ(cnpj)) return res.status(422).json({msg: "CNPJ inválido" });
             if(cnpj) {
-                const cnpjExists = await User.findOne({ cnpj: cnpj })
-                if(cnpjExists) return res.status(422).json({msg:{cnpj:"CNPJ já cadastrado."}});
+                const cnpjExists = await User.findOne({cnpj:cnpj});
+                if(cnpjExists) return res.status(422).json({msg:"CNPJ já cadastrado."});
             }
 
             await User.create(user);
