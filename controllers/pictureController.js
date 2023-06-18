@@ -44,31 +44,6 @@ const pictureController = {
         } catch (err) {
             console.log(err);   
         }
-    },
-    get: async(req, res) => {
-        try {
-            const id = req.params.id;
-            const data = await Picture.findById(id);
-            if(!data) {
-                return res.status(404).json("Imagem não encontrada.");
-            }
-            return res.status(200).json(data);
-        } catch (err) {
-            return res.json(err);
-        }
-    },
-    delete: async(req, res) => {
-        try {
-            const id = req.params.id;
-            const data = Picture.findById(id);
-            if(!data) {
-                return res.status(404).json("Image não encontrada.");
-            }
-            await Picture.findByIdAndDelete(id);
-            return res.status(200).json("Imagem apagada com sucesso.");
-        } catch (err) {
-            return res.json(err);
-        }
     }
 };
 
