@@ -12,7 +12,7 @@ const publicationController = {
                 location: req.body.location
             }
             await Publication.create(data);
-            if(data.imageUrl) {
+            if(!data.imageUrl) {
                 return res.status(403).json("Imagem não encontrada")
             }
             if(!data) {
