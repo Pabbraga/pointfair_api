@@ -3,10 +3,6 @@ import mongoose from "mongoose";
 const { Schema } = mongoose;
 
 const publicationSchema = new Schema({
-    name: {
-        type: String,
-        required: true
-    },
     description: {
         type: String,
         required: true
@@ -21,7 +17,7 @@ const publicationSchema = new Schema({
     },
     quantity: {
         type: Number,
-        required: true
+        required: false
     },
     owner: {
         type: mongoose.Schema.Types.ObjectId,
