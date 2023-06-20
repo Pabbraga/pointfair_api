@@ -142,7 +142,7 @@ const userController = {
             if(!userExists) {
                 return res.status(404).json("Nenhum usuário foi encontrado.")
             }
-            const schedules = {
+            const daysOfWeek = {
                 sunday: req.body.sunday,
                 monday: req.body.monday,
                 tuesday: req.body.tuesday,
@@ -151,7 +151,8 @@ const userController = {
                 friday: req.body.friday,
                 saturnday: req.body.saturnday
             }
-            await User.findByIdAndUpdate(id, schedules);
+            const schedule = daysOfWeek;
+            await User.findByIdAndUpdate(id, schedule);
             return res.status(201).json("Horário atualizado com sucesso.");
         } catch (err) {
 
