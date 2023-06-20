@@ -122,6 +122,10 @@ const userController = {
                 photoUrl: req.body.photoUrl,
                 description: req.body.description,
             }
+            const userExists = await User.findById(id).populate('following').populate('fair');
+            if(!userExists) {
+                return res.status(404).json("Nenhum usuário foi encontrado.")
+            }
             if(!user.nickname) {
                 return res.status(422).json("Preencha o campo de apelido de usuário.")
             }
@@ -129,6 +133,28 @@ const userController = {
             return res.status(201).json("Usuário atualizado com sucesso.");
         } catch (err) {
             return res.status(503).json("Serviço indisponível, tente mais tarde.");
+        }
+    },
+    updateSchedules: async(req, res) => {
+        try {
+            const id = req.params.id;
+            const userExists = await User.findById(id).populate('following').populate('fair');
+            if(!userExists) {
+                return res.status(404).json("Nenhum usuário foi encontrado.")
+            }
+            const schedules = {
+                sunday: req.body.sunday,
+                monday: req.body.monday,
+                tuesday: req.body.tuesday,
+                wednesday: req.body.wednesday,
+                thursday: req.body.thursday,
+                friday: req.body.friday,
+                saturnday: req.body.saturnday
+            }
+            await User.findByIdAndUpdate(id, schedules);
+            return res.status(201).json("Horário atualizado com sucesso.");
+        } catch (err) {
+
         }
     },
     update: async(req, res) => {

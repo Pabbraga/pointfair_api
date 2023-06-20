@@ -59,10 +59,8 @@ const publicationController = {
             const id = req.params.id;
             const data = {
                 descricao: req.body.descricao,
-                image: req.body.image,
                 inStock: req.body.inStock,
                 quantity: req.body.quantity,
-                location: req.body.location
             }
 
             const publicationExists = await Publication.findById(id);
@@ -71,7 +69,7 @@ const publicationController = {
             }
 
             await Publication.findByIdAndUpdate(id, data);
-            return res.status(200).json("Produto atualizado com sucesso");
+            return res.status(200).json("Publicação atualizada com sucesso");
         } catch (err) {
             return res.json(err);
         }
@@ -86,7 +84,7 @@ const publicationController = {
             }
 
             await Publication.findByIdAndDelete(id);
-            return res.status(200).json("Produto apagado com sucesso");
+            return res.status(200).json("Publicação apagada com sucesso");
         } catch (err) {
             return res.json(err);
         }

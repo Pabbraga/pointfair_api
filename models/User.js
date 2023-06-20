@@ -52,6 +52,19 @@ const userSchema = new Schema({
         type: [mongoose.Schema.Types.ObjectId],
         ref: "User",
         require: false
+    },
+    schedules: {
+        type: Object,
+        default: {
+            sunday: '',
+            monday: '',
+            tuesday: '',
+            wednesday: '',
+            thursday: '',
+            friday: '',
+            saturnday: ''
+        },
+        require: false
     }
 }, {timestamps: true}
 );
