@@ -58,7 +58,6 @@ const publicationController = {
         try {
             const id = req.params.id;
             const data = {
-                descricao: req.body.descricao,
                 inStock: req.body.inStock,
                 quantity: req.body.quantity,
             }
