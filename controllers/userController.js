@@ -151,8 +151,8 @@ const userController = {
                 friday: req.body.friday,
                 saturnday: req.body.saturnday
             }
-            const schedule = daysOfWeek;
-            await User.findByIdAndUpdate(id, schedule);
+            const schedules = daysOfWeek;
+            await User.findByIdAndUpdate(id, schedules);
             return res.status(201).json("Horário atualizado com sucesso.");
         } catch (err) {
 
