@@ -9,7 +9,6 @@ router.get("/:id", userController.get);
 router.get("/search/:search", userController.search);
 router.put("/:id", userController.update);
 router.put("/profile/:id", userController.updateProfile);
-router.put("/:id", userController.updateSchedules);
 router.delete("/:id", userController.delete);
 
 export default router;

@@ -86,7 +86,7 @@ const publicationController = {
             }
 
             await Publication.findByIdAndDelete(id);
-            return res.status(200).json("Publicação apagada com sucesso");
+            return res.status(200).json("Produto apagado com sucesso");
         } catch (err) {
             return res.json(err);
         }
