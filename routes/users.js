@@ -3,8 +3,8 @@ import userController from "../controllers/userController.js";
 
 const router = express.Router();
 
-router.post('/', userController.create);
-router.get('/', userController.getAll);
+router.post("/", userController.create);
+router.get("/", userController.getAll);
 router.get("/:id", userController.get);
 router.get("/search/:search", userController.search);
 router.put("/:id", userController.update);

@@ -1,7 +1,8 @@
 import express from "express";
 
-const routes = express.Router()
+const routes = express.Router();
 
+import forgotPasswordRoutes from "./forgotPassword.js";
 import authRoutes from "./auth.js";
 import usersRoutes from "./users.js";
 import addressRoutes from "./address.js";
@@ -10,6 +11,7 @@ import publicationRoutes from "./publication.js";
 import pictureRoutes from "./picture.js";
 import followRoutes from "./follow.js";
 
+routes.use("/password-reset", forgotPasswordRoutes);
 routes.use("/auth", authRoutes);
 routes.use("/user", usersRoutes);
 routes.use("/fair", fairRoutes);
