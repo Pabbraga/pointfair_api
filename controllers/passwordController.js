@@ -25,30 +25,27 @@ const passwordController = {
         port: 587,
         secure: false,
         auth: {
-          user: "pointfair.enterprise@gmail.com",
-          pass: "pointfair2023",
+          user: process.env.EMAIL_USERNAME,
+          pass: process.env.EMAIL_PASSWORD,
         },
       });
 
       const configEmail = {
-        from: "pointfair.enterprise@gmail.com",
+        from: process.env.EMAIL_USERNAME,
         to: email,
         subject: "Código de senha",
         html: `<p>Seu código de senha é: <strong>${passwordCode}</strong></p>`,
       };
 
-      new Promise((resolve, reject) => {
-        smtp
-          .sendMail(configEmail)
-          .then((response) => {
-            smtp.close();
-            return resolve(response);
-          })
-          .catch((error) => {
-            console.log(error);
-            smtp.close();
-            return reject(error);
-          });
+      smtp.sendMail(configEmail, (error, info) => {
+        if (error) {
+          console.log(error);
+          res.status(500).json("Erro ao enviar o e-mail");
+        } else {
+          console.log("E-mail enviado:", info.response);
+          res.status(200).json("Código de senha enviado com sucesso");
+        }
+        smtp.close();
       });
     } catch (error) {
       console.error(error);
