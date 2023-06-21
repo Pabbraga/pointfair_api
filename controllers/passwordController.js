@@ -1,7 +1,7 @@
 import bcrypt from "bcrypt";
-import nodemailer from "nodemailer";
 import { User } from "../models/User.js";
 import dotenv from "dotenv";
+import nodemailer from "nodemailer";
 
 dotenv.config();
 
@@ -20,26 +20,39 @@ const passwordController = {
       user.passwordCode = passwordCode;
       await user.save();
 
-      const transporter = nodemailer.createTransport({
-        service: "Gmail",
+      const smtp = nodemailer.createTransport({
+        host: "smtp.gmail.com",
+        port: 587,
+        secure: false,
         auth: {
-          user: "pointfair@enterprise@gmail.com",
+          user: "pointfair.enterprise@gmail.com",
           pass: "pointfair2023",
         },
       });
 
-      const mailOptions = {
-        from: "pointfair@enterprise@gmail.com",
+      const configEmail = {
+        from: "pointfair.enterprise@gmail.com",
         to: email,
         subject: "Código de senha",
-        text: `Seu código de senha é: ${passwordCode}`,
+        html: `<p>Seu código de senha é: <strong>${passwordCode}</strong></p>`,
       };
 
-      await transporter.sendMail(mailOptions);
-      res.status(200).json("Código de senha gerado e enviado com sucesso");
+      new Promise((resolve, reject) => {
+        smtp
+          .sendMail(configEmail)
+          .then((response) => {
+            smtp.close();
+            return resolve(response);
+          })
+          .catch((error) => {
+            console.log(error);
+            smtp.close();
+            return reject(error);
+          });
+      });
     } catch (error) {
       console.error(error);
-      res.status(500).json("Erro ao gerar e enviar o código de senha");
+      res.status(500).json("Erro ao gerar o código de senha");
     }
   },
 
