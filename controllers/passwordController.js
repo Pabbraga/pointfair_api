@@ -20,32 +20,31 @@ const passwordController = {
       user.passwordCode = passwordCode;
       await user.save();
 
-      const smtp = nodemailer.createTransport({
-        host: "smtp.gmail.com",
-        port: 587,
-        secure: false,
+      let transporter = nodemailer.createTransport({
+        service: "gmail",
         auth: {
-          user: process.env.EMAIL_USERNAME,
-          pass: process.env.EMAIL_PASSWORD,
+          type: "OAuth2",
+          user: process.env.MAIL_USERNAME,
+          pass: process.env.MAIL_PASSWORD,
+          clientId: process.env.OAUTH_CLIENTID,
+          clientSecret: process.env.OAUTH_CLIENT_SECRET,
+          refreshToken: process.env.OAUTH_REFRESH_TOKEN,
         },
       });
 
-      const configEmail = {
-        from: process.env.EMAIL_USERNAME,
+      let mailOptions = {
+        from: process.env.MAIL_USERNAME,
         to: email,
         subject: "Código de senha",
-        html: `<p>Seu código de senha é: <strong>${passwordCode}</strong></p>`,
+        text: `<p>Seu código de senha é: <strong>${passwordCode}</strong></p>`,
       };
 
-      smtp.sendMail(configEmail, (error, info) => {
-        if (error) {
-          console.log(error);
-          res.status(500).json("Erro ao enviar o e-mail");
+      transporter.sendMail(mailOptions, function (err, data) {
+        if (err) {
+          console.log("Error " + err);
         } else {
-          console.log("E-mail enviado:", info.response);
-          res.status(200).json("Código de senha enviado com sucesso");
+          console.log("Email sent successfully");
         }
-        smtp.close();
       });
     } catch (error) {
       console.error(error);
