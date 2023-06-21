@@ -1,6 +1,9 @@
 import bcrypt from "bcrypt";
-import { User } from "../models/User.js";
 import nodemailer from "nodemailer";
+import User from "../models/User.js";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 const passwordController = {
   generateCode: async (req, res) => {
@@ -20,13 +23,13 @@ const passwordController = {
       const transporter = nodemailer.createTransport({
         service: "Gmail",
         auth: {
-          user: "pointfair.entreprise@gmail.com",
-          pass: "pointfair2023",
+          user: process.env.EMAIL_USERNAME,
+          pass: process.env.EMAIL_PASSWORD,
         },
       });
 
       const mailOptions = {
-        from: "pointfair.entreprise@gmail.com",
+        from: process.env.EMAIL_USERNAME,
         to: email,
         subject: "Código de senha",
         text: `Seu código de senha é: ${passwordCode}`,
