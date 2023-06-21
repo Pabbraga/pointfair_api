@@ -23,13 +23,13 @@ const passwordController = {
       const transporter = nodemailer.createTransport({
         service: "Gmail",
         auth: {
-          user: process.env.EMAIL_USERNAME,
-          pass: process.env.EMAIL_PASSWORD,
+          user: "pointfair@enterprise@gmail.com",
+          pass: "pointfair2023",
         },
       });
 
       const mailOptions = {
-        from: process.env.EMAIL_USERNAME,
+        from: "pointfair@enterprise@gmail.com",
         to: email,
         subject: "Código de senha",
         text: `Seu código de senha é: ${passwordCode}`,
