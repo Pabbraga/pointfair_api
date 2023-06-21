@@ -23,7 +23,7 @@ const passwordController = {
       });
 
       const mailOptions = {
-        from: "@mail.com",
+        from: "pointfair.entreprise@gmail.com",
         to: User.email,
         subject: "Código de senha",
         text: `Seu código de senha é: ${passwordCode}`,
