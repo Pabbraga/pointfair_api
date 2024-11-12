@@ -13,6 +13,7 @@ Logo ao iniciar o projeto utilize o seguinte comando no terminal
 ```
 npm install
 ```
+Modificar arquivo ``googledrive.json`` utilizando sua chave e dados da [API Google Drive](https://developers.google.com/drive/api/guides/about-sdk?hl=pt-br)  
 
 ## Configurando conexões
 
